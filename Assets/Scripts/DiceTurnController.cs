@@ -22,6 +22,8 @@ public class DiceTurnController : MonoBehaviour
     private Vector3 collectDiceRiseOffset = Vector3.up;
     [SerializeField]
     private Vector3 collectDiceLocation = Vector3.zero;
+    [SerializeField]
+    private float collectDiceSpreadRadius = 0.5f;
 
     [SerializeField]
     private float throwableBundleClickableRadius = 1f;
@@ -42,7 +44,7 @@ public class DiceTurnController : MonoBehaviour
     {
         dice = CreateDice();
         MakeDiceKinematic();
-        StartCoroutine(GrabAllDiceAndPrepareForRoll());
+        StartCoroutine(CollectAllDiceAndPrepareForRoll());
     }
 
     private List<Die> CreateDice()
@@ -67,23 +69,66 @@ public class DiceTurnController : MonoBehaviour
         }
     }
 
-    private IEnumerator GrabAllDiceAndPrepareForRoll()
+    private class DieBezierPath
+    {
+        public int dieIndex;
+        public Vector3 startPosition;
+        public Vector3 control0;
+        public Vector3 control1;
+        public Vector3 endPosition;
+    }
+    private IEnumerator RunBezierPaths(List<DieBezierPath> bezierPaths, float duration)
+    {
+        var startTime = Time.time;
+        var endTime = startTime + duration;
+
+        while (Time.time < endTime)
+        {
+            var timeProportion = Mathf.InverseLerp(startTime, endTime, Time.time);
+
+            foreach (var diePath in bezierPaths)
+            {
+                var dieTransform = dice[diePath.dieIndex].gameObject.transform;
+                dieTransform.position = BezierLerp(diePath.startPosition, diePath.control0, diePath.control1, diePath.endPosition, timeProportion);
+            }
+
+            yield return 0;
+        }
+    }
+
+    private Vector3 BezierLerp(Vector3 start, Vector3 control0, Vector3 control1, Vector3 end, float time)
+    {
+        var mid = Vector3.Lerp(control0, control1, time);
+
+        var startLerp = Vector3.Lerp(start, mid, time);
+        var endLerp = Vector3.Lerp(mid, end, time);
+
+        return Vector3.Lerp(startLerp, endLerp, time);
+    }
+
+    private IEnumerator CollectAllDiceAndPrepareForRoll()
     {
         foreach (var die in dice)
         {
             Assert.IsTrue(die.body.isKinematic);
         }
 
-        // TODO
         // create bezier path control points for each die
+        var bezierPaths = Enumerable.Range(0, dice.Count)
+            .Select(dieIndex => {
+                var die = dice[dieIndex];
+                var scrunchPosition = collectDiceLocation + Random.insideUnitSphere * collectDiceSpreadRadius;
+                return new DieBezierPath{
+                    dieIndex = dieIndex,
+                    startPosition = die.gameObject.transform.position,
+                    control0 = die.gameObject.transform.position + collectDiceRiseOffset,
+                    control1 = scrunchPosition,
+                    endPosition = scrunchPosition,
+                };
+            })
+            .ToList();
 
-        var endTime = Time.time + collectDiceDuration;
-        while (Time.time < endTime)
-        {
-            // TODO
-            // each frame, move the die along their path according to the time
-            yield return 0; // wait one frame
-        }
+        yield return RunBezierPaths(bezierPaths, collectDiceDuration);
 
         StartCoroutine(UserClicksAndThrowsDiceBundle());
     }
