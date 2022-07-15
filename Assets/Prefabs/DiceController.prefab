@@ -47,8 +47,9 @@ MonoBehaviour:
   diePrefab: {fileID: 7387645378793593163, guid: 703ebaa71b2a8314aa3123dcc6a642da, type: 3}
   numberOfDice: 6
   playerCamera: {fileID: 0}
-  collectDiceDuration: 0.5
+  collectDiceDuration: 1
   collectDiceRiseOffset: {x: 0, y: 1, z: 0}
-  collectDiceLocation: {x: 0, y: 0, z: 0}
+  collectDiceLocation: {x: 5, y: 4, z: -5}
+  collectDiceSpreadRadius: 2
   throwableBundleClickableRadius: 1
   jackedRethrowDiceDuration: 0.5
