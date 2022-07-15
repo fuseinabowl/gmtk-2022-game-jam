@@ -71,7 +71,6 @@ public class DieStoppedDetector : MonoBehaviour
 
     private void ReportNewlyStable()
     {
-        Debug.Log("Now stopped!");
         onNewlyStable?.Invoke();
     }
 }

@@ -9,20 +9,6 @@ public class DieFaceDetector : MonoBehaviour
     [Range(0f,1f)]
     private float maximumFaceTiltBeforeJacked = 1e-3f;
 
-    private void Start()
-    {
-        StartCoroutine(PeriodicallyReportFace());
-    }
-
-    private IEnumerator PeriodicallyReportFace()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(1f);
-            Debug.Log($"Current face is {GetUpFace()}");
-        }
-    }
-
     private static readonly Vector3[] faces = new Vector3[]{Vector3.up, Vector3.right, Vector3.forward, Vector3.back, Vector3.left, Vector3.down};
     private struct FaceAndUpness
     {
