@@ -42,4 +42,9 @@ public class DieFaceDetector : MonoBehaviour
     {
         return Vector3.Dot(Vector3.up, transform.rotation * faceDirection);
     }
+
+    public bool IsJacked()
+    {
+        return false;
+    }
 }
