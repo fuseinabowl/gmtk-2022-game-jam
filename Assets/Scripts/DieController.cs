@@ -5,11 +5,14 @@ using UnityEngine;
 public class DieController : MonoBehaviour
 {
     [SerializeField]
-    private float impulse = 10f;
+    private float minImpulse = 5f;
+    [SerializeField]
+    private float maxImpulse = 10f;
 
     void Start()
     {
         var body = GetComponent<Rigidbody>();
-        body.AddForce(Vector3.forward * impulse, ForceMode.Impulse);
+        var randomImpulse = Mathf.Lerp(minImpulse, maxImpulse, Random.value);
+        body.AddForce(Vector3.forward * randomImpulse, ForceMode.Impulse);
     }
 }
