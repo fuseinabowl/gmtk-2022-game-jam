@@ -23,7 +23,7 @@ public class DiceTurnController : MonoBehaviour
     [SerializeField]
     private Vector3 collectDiceLocation = Vector3.zero;
     [SerializeField]
-    private float collectDiceSpreadRadius = 0.5f;
+    private List<Vector3> collectDiceOffsets = new List<Vector3>();
 
     [SerializeField]
     private float throwableBundleClickableRadius = 1f;
@@ -39,6 +39,11 @@ public class DiceTurnController : MonoBehaviour
         public DieStoppedDetector stoppedDetector = null;
     }
     private List<Die> dice = null;
+
+    private void Awake()
+    {
+        Assert.AreEqual(collectDiceOffsets.Count, numberOfDice);
+    }
 
     private void Start()
     {
@@ -117,7 +122,7 @@ public class DiceTurnController : MonoBehaviour
         var bezierPaths = Enumerable.Range(0, dice.Count)
             .Select(dieIndex => {
                 var die = dice[dieIndex];
-                var scrunchPosition = collectDiceLocation + Random.insideUnitSphere * collectDiceSpreadRadius;
+                var scrunchPosition = collectDiceLocation + collectDiceOffsets[dieIndex];
                 return new DieBezierPath{
                     dieIndex = dieIndex,
                     startPosition = die.gameObject.transform.position,
