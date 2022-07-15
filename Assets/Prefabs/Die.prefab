@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 7387645378793593173}
   - component: {fileID: 7387645378793593162}
   - component: {fileID: 7387645378793593174}
-  - component: {fileID: 7387645378793593169}
   - component: {fileID: 648749482315463182}
   - component: {fileID: 6719498461050603395}
   m_Layer: 0
@@ -117,20 +116,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7387645378793593169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7387645378793593163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36d5b840f8b90fc498fcd17fdefe59c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minImpulse: 5
-  maxImpulse: 10
 --- !u!114 &648749482315463182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,6 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d6dc80807da2a74890dad48607f2429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maximumFaceTiltBeforeJacked: 0.001
 --- !u!114 &6719498461050603395
 MonoBehaviour:
   m_ObjectHideFlags: 0

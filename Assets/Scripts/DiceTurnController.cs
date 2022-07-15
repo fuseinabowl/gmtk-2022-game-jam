@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Assertions;
 
 public class DiceTurnController : MonoBehaviour
@@ -12,10 +13,21 @@ public class DiceTurnController : MonoBehaviour
     private int numberOfDice = 6;
 
     [SerializeField]
-    private float collectDiceDuration = 0.5f;
+    private Camera playerCamera = null;
 
     [SerializeField]
-    private float rethrowDiceDuration = 0.5f;
+    private float collectDiceDuration = 0.5f;
+    [SerializeField]
+    [Tooltip("When picking up the dice to reroll, how high should the dice go when animating back to the throwable bundle?")]
+    private Vector3 collectDiceRiseOffset = Vector3.up;
+    [SerializeField]
+    private Vector3 collectDiceLocation = Vector3.zero;
+
+    [SerializeField]
+    private float throwableBundleClickableRadius = 1f;
+
+    [SerializeField]
+    private float jackedRethrowDiceDuration = 0.5f;
 
     private class Die
     {
@@ -83,30 +95,50 @@ public class DiceTurnController : MonoBehaviour
             yield return 0;
         }
 
-        while (!IsUserCurrentlyHoldingMouseDown())
+        Debug.Log("Picking up dice");
+
+        while (IsUserCurrentlyHoldingMouseDown())
         {
             MoveDiceBundleToCursor();
             yield return 0;
         }
+
+        Debug.Log("Throwing dice");
 
         StartCoroutine(ThrowDiceAndWaitForResult());
     }
 
     private bool HasUserClickedOnTheDiceBundleThisFrame()
     {
-        // TODO
+        if (Input.GetMouseButtonDown(0) && !IsClickingOnUi())
+        {
+            var clickWorldRay = playerCamera.ScreenPointToRay(Input.mousePosition);
+            var rayOriginToBundleOffset = collectDiceLocation - clickWorldRay.origin;
+            // project onto ray to get closest point
+            var distanceAlongRay = Vector3.Dot(rayOriginToBundleOffset, clickWorldRay.direction);
+            var rayClosestPoint = clickWorldRay.GetPoint(distanceAlongRay);
+
+            var distanceFromRaySquared = (rayClosestPoint - collectDiceLocation).sqrMagnitude;
+
+            return distanceFromRaySquared < (throwableBundleClickableRadius * throwableBundleClickableRadius);
+        }
         return false;
+    }
+
+    static private bool IsClickingOnUi()
+    {
+        return EventSystem.current.IsPointerOverGameObject();
     }
 
     private bool IsUserCurrentlyHoldingMouseDown()
     {
-        // TODO
-        return false;
+        return Input.GetMouseButton(0);
     }
 
     private void MoveDiceBundleToCursor()
     {
         // TODO
+        // move dice bundle around (inside box)
     }
 
     private IEnumerator ThrowDiceAndWaitForResult()
@@ -144,7 +176,7 @@ public class DiceTurnController : MonoBehaviour
         // TODO
         // create bezier control points
 
-        var endTime = Time.time + rethrowDiceDuration;
+        var endTime = Time.time + jackedRethrowDiceDuration;
         while (Time.time < endTime)
         {
             // TODO
