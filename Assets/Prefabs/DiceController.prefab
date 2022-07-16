@@ -111,12 +111,12 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   grabMinBounds: {x: 2, y: -6}
-  grabMaxBounds: {x: 11, y: 5}
+  grabMaxBounds: {x: 7, y: 5}
   throwableBundleClickableRadius: 3
   throwRandomVelocity: 10
   throwRandomAngularVelocity: 20
   invalidDiceRethrowLeftPosition: {x: 2, y: 2, z: -5}
-  invalidDiceRethrowRightPosition: {x: 10, y: 2, z: -5}
+  invalidDiceRethrowRightPosition: {x: 8, y: 2, z: -5}
   invalidDiceRethrowBaseOffset: {x: 0, y: 0, z: -2}
   invalidDiceRethrowRandomOffset: 1
   invalidDiceRethrowDuration: 0.25
