@@ -26,6 +26,12 @@ public class DiceTurnController : MonoBehaviour
     private List<Vector3> collectDiceOffsets = new List<Vector3>();
 
     [SerializeField]
+    private AnimationCurve grabScrunchOverTime = AnimationCurve.EaseInOut(0f, 1f, 0.1f, 0.8f);
+    [SerializeField]
+    private Vector2 grabMinBounds = Vector2.zero;
+    [SerializeField]
+    private Vector2 grabMaxBounds = Vector2.zero;
+    [SerializeField]
     private float throwableBundleClickableRadius = 1f;
 
     [SerializeField]
@@ -147,9 +153,11 @@ public class DiceTurnController : MonoBehaviour
 
         Debug.Log("Picking up dice");
 
+        var grabTime = Time.time;
         while (IsUserCurrentlyHoldingMouseDown())
         {
-            MoveDiceBundleToCursor();
+            var grabDuration = Time.time - grabTime;
+            MoveDiceBundleToCursor(grabDuration);
             yield return 0;
         }
 
@@ -185,10 +193,38 @@ public class DiceTurnController : MonoBehaviour
         return Input.GetMouseButton(0);
     }
 
-    private void MoveDiceBundleToCursor()
+    private void MoveDiceBundleToCursor(float grabDuration)
     {
-        // TODO
-        // move dice bundle around (inside box)
+        var rawGrabPoint = GetMouseLocationOnGrabPlane();
+        var grabPointInsideBounds = ClampGrabPointInsideBounds(rawGrabPoint);
+
+        var scrunchMultiplier = grabScrunchOverTime.Evaluate(grabDuration);
+
+        foreach (var dieIndex in Enumerable.Range(0, dice.Count))
+        {
+            var die = dice[dieIndex];
+            var scrunchOffset = collectDiceOffsets[dieIndex];
+
+            var position = grabPointInsideBounds + scrunchOffset * scrunchMultiplier;
+
+            die.gameObject.transform.position = position;
+        }
+    }
+
+    private Vector3 GetMouseLocationOnGrabPlane()
+    {
+        var mouseRay = playerCamera.ScreenPointToRay(Input.mousePosition);
+        var grabHeight = collectDiceLocation.y;
+        var planeDistanceAlongRay = -(Vector3.Dot(mouseRay.origin, Vector3.up) - grabHeight) / Vector3.Dot(mouseRay.direction, Vector3.up);
+        return mouseRay.origin + planeDistanceAlongRay * mouseRay.direction;
+    }
+
+    private Vector3 ClampGrabPointInsideBounds(Vector3 rawGrabPoint)
+    {
+        var clampedX = Mathf.Clamp(rawGrabPoint.x, grabMinBounds.x, grabMaxBounds.x);
+        var clampedZ = Mathf.Clamp(rawGrabPoint.z, grabMinBounds.y, grabMaxBounds.y);
+
+        return new Vector3(clampedX, rawGrabPoint.y, clampedZ);
     }
 
     private IEnumerator ThrowDiceAndWaitForResult()
