@@ -105,8 +105,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  grabMinBounds: {x: 1, y: -7}
-  grabMaxBounds: {x: 11, y: 7}
+  grabMinBounds: {x: 2, y: -6}
+  grabMaxBounds: {x: 11, y: 5}
   throwableBundleClickableRadius: 3
   throwRandomVelocity: 10
   throwRandomAngularVelocity: 20
