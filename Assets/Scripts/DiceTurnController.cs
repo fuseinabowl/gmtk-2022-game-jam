@@ -76,6 +76,10 @@ public class DiceTurnController : MonoBehaviour
 
     [SerializeField]
     private ConsumableMovements outputConsumableMovements = null;
+    [SerializeField]
+    private Vector3 consumedDieOffset = Vector3.down;
+    [SerializeField]
+    private float cosumedDieAnimationDuration = 0.2f;
 
     [SerializeField]
     private UIDocument gameUi = null;
@@ -102,6 +106,7 @@ public class DiceTurnController : MonoBehaviour
         dice = CreateDice();
         MakeDiceKinematic();
         MakeNextTurnButtonCollectDice();
+        RegisterWithMovementConsumed();
         StartCoroutine(CollectAllDiceAndPrepareForRoll());
     }
 
@@ -405,9 +410,11 @@ public class DiceTurnController : MonoBehaviour
         yield return new WaitForFixedUpdate();
     }
 
+    private List<List<int>> facingDice = null;
+
     private IEnumerator ArrangeDiceResults()
     {
-        var seenFaceInstances = Enumerable.Range(0,6).Select(index => 0).ToList();
+        facingDice = Enumerable.Range(0,6).Select(index => new List<int>()).ToList();
 
         var topPosition = arrangingTopLeftPosition;
         var bottomPosition = topPosition + Vector3.back * arrangingHeight;
@@ -416,13 +423,13 @@ public class DiceTurnController : MonoBehaviour
             .Select((die, dieIndex) => {
                 var face = die.faceDetector.GetUpFace();
                 var faceVerticalPosition = Vector3.Lerp(topPosition, bottomPosition, (float)face / 5f);
-                var faceHorizontalOffset = Vector3.right * seenFaceInstances[face] * arrangingHorizontalSpacing;
+                var faceHorizontalOffset = Vector3.right * facingDice[face].Count * arrangingHorizontalSpacing;
                 var targetPosition = faceVerticalPosition + faceHorizontalOffset;
 
                 var targetLookAt = arrangingDiceRotations[face];
                 var targetRotation = Quaternion.LookRotation(targetLookAt.forward, targetLookAt.up);
 
-                seenFaceInstances[face] = seenFaceInstances[face] + 1;
+                facingDice[face].Add(dieIndex);
 
                 return new DieBezierPath{
                     dieIndex = dieIndex,
@@ -442,7 +449,9 @@ public class DiceTurnController : MonoBehaviour
 
         yield return RunBezierPaths(beziers, arrangingDuration);
 
-        ReportResultsToWeightGame(seenFaceInstances);
+        var seenFaceCounts = facingDice.Select(dieIndexList => dieIndexList.Count).ToList();
+        consumingDieAnimators.Clear();
+        ReportResultsToWeightGame(seenFaceCounts);
         EnableNextTurnButton();
     }
 
@@ -476,5 +485,48 @@ public class DiceTurnController : MonoBehaviour
     private Button GetNextTurnButton()
     {
         return gameUi.rootVisualElement.Q<VisualElement>("MainPanel").Q<Button>("NextTurn");
+    }
+
+    private List<Coroutine> consumingDieAnimators = new List<Coroutine>();
+
+    private void RegisterWithMovementConsumed()
+    {
+        outputConsumableMovements.onMovementConsumed += OnDieConsumed;
+    }
+
+    private void OnDieConsumed(ConsumableMovements.Movement movement, int consumedDieIndex)
+    {
+        var movementIndex = (int)movement;
+        var facingDiceIndices = facingDice[movementIndex];
+        Assert.IsTrue(consumedDieIndex < facingDiceIndices.Count);
+        var dieIndex = facingDiceIndices[consumedDieIndex];
+
+        // store animation coroutine so it can be cancelled if the player quickly starts the next level
+        consumingDieAnimators.Add(
+            StartCoroutine(AnimateDieConsumption(dieIndex))
+        );
+    }
+
+    private IEnumerator AnimateDieConsumption(int dieIndex)
+    {
+        var die = dice[dieIndex];
+        var sunkenPosition = die.gameObject.transform.position + consumedDieOffset;
+        var bezierPaths = new List<DieBezierPath>{
+            new DieBezierPath {
+                dieIndex = dieIndex,
+
+                startPosition = die.gameObject.transform.position,
+                control0 = sunkenPosition,
+                control1 = sunkenPosition,
+                endPosition = sunkenPosition,
+
+                startRotation = die.gameObject.transform.rotation,
+                controlRotation0 = die.gameObject.transform.rotation,
+                controlRotation1 = die.gameObject.transform.rotation,
+                endRotation = die.gameObject.transform.rotation,
+            }
+        };
+        
+        yield return RunBezierPaths(bezierPaths, cosumedDieAnimationDuration);
     }
 }

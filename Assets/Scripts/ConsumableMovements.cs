@@ -8,6 +8,10 @@ public class ConsumableMovements : MonoBehaviour
     private bool isReadyToShare = false;
 
     private int[] availableMovements = new int[6];
+    private int[] movementsConsumedThisTurn = new int[6];
+
+    public delegate void OnMovementConsumed(Movement movement, int indexConsumedThisTurn);
+    public OnMovementConsumed onMovementConsumed = null;
 
     public void SetAvailableMovements(
         int up,
@@ -27,7 +31,17 @@ public class ConsumableMovements : MonoBehaviour
         availableMovements[4] = right;
         availableMovements[5] = stop;
 
+        ClearMovementsConsumedThisTurn();
+
         isReadyToShare = true;
+    }
+
+    private void ClearMovementsConsumedThisTurn()
+    {
+        for (var i = 0; i < movementsConsumedThisTurn.Length; ++i)
+        {
+            movementsConsumedThisTurn[i] = 0;
+        }
     }
 
     public enum Movement
@@ -58,6 +72,9 @@ public class ConsumableMovements : MonoBehaviour
         var numberOfTargetMovementAvailable = availableMovements[movementIndex];
         Assert.IsTrue(numberOfTargetMovementAvailable > 0);
         availableMovements[movementIndex] = numberOfTargetMovementAvailable - 1;
+
+        onMovementConsumed?.Invoke(movement, movementsConsumedThisTurn[movementIndex]);
+        movementsConsumedThisTurn[movementIndex] = movementsConsumedThisTurn[movementIndex] + 1;
     }
 
     public void StopSharingMovements()
@@ -67,5 +84,6 @@ public class ConsumableMovements : MonoBehaviour
         {
             availableMovements[moveIndex] = 0;
         }
+        ClearMovementsConsumedThisTurn();
     }
 }
