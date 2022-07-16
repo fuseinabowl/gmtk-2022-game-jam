@@ -11,7 +11,9 @@ public class StoryPopUpController : MonoBehaviour
     [SerializeField]
     private float characterTypingRatePerSecond = 20.0f;
     [SerializeField]
-    private UIDocument storyPopUpUI = null;
+    private UIDocument storyPopUpUI = null;    
+    [SerializeField]
+    private DiceTurnController diceTurnController = null;
 
     private float popUpOpacity = 0.0f;
     private bool shouldShowPopUp = false;
@@ -20,10 +22,61 @@ public class StoryPopUpController : MonoBehaviour
     private bool typingText = false;
     private float timeToTypeText = 0.0f;
 
+    private string[] storyTexts = new string[3] {
+@"Hi
+Your job is to weight my dice down
+Get to it pleb
+a
+a
+a
+a
+a
+a
+a",
+@"Wow
+You did it
+Im proud of you kid",
+@"Ok
+You should have died already what are you doing here just stop already let it go
+Why"
+    };
+    private int currentStoryString = 0;
+
     // Start is called before the first frame update
     void Start()
     {
-        //ShowPopUp();
+        RegisterWithOnNewTurn();
+        MakeContinueButtonHideUI();
+        SetOpacity(0.0f);
+        ShowNextStoryPopUp();
+    }
+    
+    private void RegisterWithOnNewTurn()
+    {
+        diceTurnController.onNewTurn += OnNewTurn;
+    }
+
+    private void OnNewTurn()
+    {
+        ShowNextStoryPopUp();
+    }
+
+    private void ShowNextStoryPopUp()
+    {
+        if (currentStoryString < storyTexts.Length)
+        {
+            ShowPopUp();
+            SetTextToType(storyTexts[currentStoryString]);
+            currentStoryString += 1;
+        }
+    }
+
+    private void MakeContinueButtonHideUI()
+    {
+        GetContinueButton().clicked += () =>
+        {
+           HidePopUp();
+        };
     }
 
     // Update is called once every 1/50 seconds
@@ -80,12 +133,12 @@ public class StoryPopUpController : MonoBehaviour
         shouldShowPopUp = false;
     }
 
-    bool IsShown()
+    public bool IsShown()
     {
         return popUpOpacity > 0.0f;
     }
 
-    bool IsFullyShown()
+    public bool IsFullyShown()
     {
         return popUpOpacity >= 1.0f;
     }
@@ -113,8 +166,13 @@ public class StoryPopUpController : MonoBehaviour
         return storyPopUpUI.rootVisualElement.Q<VisualElement>("StoryPopUp");
     }
 
-     private Label GetLabel()
+    private Label GetLabel()
     {
         return storyPopUpUI.rootVisualElement.Q<Label>("StoryText");
+    }
+
+    private Button GetContinueButton()
+    {
+        return storyPopUpUI.rootVisualElement.Q<Button>("ContinueButton");
     }
 }

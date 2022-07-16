@@ -83,6 +83,11 @@ public class DiceTurnController : MonoBehaviour
 
     [SerializeField]
     private UIDocument gameUi = null;
+    [SerializeField]
+    private StoryPopUpController storyPopUpController = null;
+
+    public delegate void OnNewTurn();
+    public OnNewTurn onNewTurn = null;
 
     private class Die
     {
@@ -115,7 +120,8 @@ public class DiceTurnController : MonoBehaviour
         GetNextTurnButton().clicked += () =>
         {
             outputConsumableMovements.StopSharingMovements();
-            StartCoroutine(CollectAllDiceAndPrepareForRoll());
+            StartCoroutine(CollectAllDiceAndPrepareForRoll());     
+            onNewTurn?.Invoke();
         };
     }
 
@@ -242,6 +248,11 @@ public class DiceTurnController : MonoBehaviour
 
     private IEnumerator UserClicksAndThrowsDiceBundle()
     {
+        while (storyPopUpController.IsShown())
+        {
+            yield return 0;
+        }
+
         while (!HasUserClickedOnTheDiceBundleThisFrame())
         {
             yield return 0;
