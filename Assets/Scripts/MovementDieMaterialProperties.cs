@@ -22,11 +22,22 @@ public class MovementDieMaterialProperties : MonoBehaviour
 
     private void Start()
     {
+        CreatePropertyBlock();
+    }
+
+    private void CreatePropertyBlock()
+    {
         propertyBlock = new MaterialPropertyBlock();
     }
 
     private void Update()
     {
+#if UNITY_EDITOR
+        if (propertyBlock == null)
+        {
+            CreatePropertyBlock();
+        }
+#endif
         Assert.IsNotNull(propertyBlock);
         propertyBlock.SetColor("_GlowColor", glowColor);
         for (var materialIndex = 0; materialIndex < targetRenderer.sharedMaterials.Length; ++materialIndex)

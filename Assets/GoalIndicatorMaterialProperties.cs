@@ -26,11 +26,22 @@ public class GoalIndicatorMaterialProperties : MonoBehaviour
 
     private void Start()
     {
+        CreatePropertyBlock();
+    }
+
+    private void CreatePropertyBlock()
+    {
         propertyBlock = new MaterialPropertyBlock();
     }
 
     private void Update()
     {
+#if UNITY_EDITOR
+        if (propertyBlock == null)
+        {
+            CreatePropertyBlock();
+        }
+#endif
         propertyBlock.SetColor("_BaseColor", albedoColor);
         propertyBlock.SetColor("_EmissionColor", emissionColor);
         targetRenderer.SetPropertyBlock(propertyBlock);
