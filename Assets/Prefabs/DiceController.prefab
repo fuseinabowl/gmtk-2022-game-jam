@@ -143,6 +143,11 @@ MonoBehaviour:
   cosumedDieAnimationDuration: 0.2
   gameUi: {fileID: 0}
   storyPopUpController: {fileID: 0}
+  invalidNumberOfFlashes: 3
+  invalidFlashBrightColor: {r: 1, g: 0, b: 0, a: 1}
+  invalidFlashDarkColor: {r: 0, g: 0, b: 0, a: 1}
+  invalidFlashToBrightDuration: 0.05
+  invalidFlashToDarkDuration: 0.1
 --- !u!114 &7549948855223118686
 MonoBehaviour:
   m_ObjectHideFlags: 0

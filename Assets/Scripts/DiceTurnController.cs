@@ -409,6 +409,7 @@ public class DiceTurnController : MonoBehaviour
             
             if (jackedDieIndices.Count > 0)
             {
+                yield return FlashInvalidDice(jackedDieIndices);
                 yield return RethrowInvalidDice(jackedDieIndices);
             }
         } while (jackedDieIndices.Count > 0);
@@ -429,6 +430,41 @@ public class DiceTurnController : MonoBehaviour
     private IEnumerable<int> GetJackedDieIndices()
     {
         return Enumerable.Range(0, dice.Count).Where(dieIndex => dice[dieIndex].faceDetector.IsJacked());
+    }
+
+    [SerializeField]
+    private int invalidNumberOfFlashes = 3;
+    [SerializeField]
+    private Color invalidFlashBrightColor = Color.white;
+    [SerializeField]
+    private Color invalidFlashDarkColor = Color.white;
+    [SerializeField]
+    private float invalidFlashToBrightDuration = 0.05f;
+    [SerializeField]
+    private float invalidFlashToDarkDuration = 0.10f;
+
+    private IEnumerator FlashInvalidDice(List<int> invalidDieIndices)
+    {
+        for (var flashLoopIndex = 0; flashLoopIndex < invalidNumberOfFlashes; ++flashLoopIndex)
+        {
+            Coroutine lastColorChanger = null;
+            foreach (var dieIndex in invalidDieIndices)
+            {
+                lastColorChanger = ChangeDieColor(dieIndex, invalidFlashBrightColor, invalidFlashToBrightDuration);
+            }
+            yield return lastColorChanger;
+
+            foreach (var dieIndex in invalidDieIndices)
+            {
+                lastColorChanger = ChangeDieColor(dieIndex, invalidFlashDarkColor, invalidFlashToDarkDuration);
+            }
+            yield return lastColorChanger;
+        }
+
+        foreach (var dieIndex in invalidDieIndices)
+        {
+            ChangeDieColor(dieIndex, collectDiceGlowColor, invalidFlashToDarkDuration);
+        }
     }
 
     private IEnumerator RethrowInvalidDice(List<int> jackedDieIndices)
