@@ -108,8 +108,8 @@ MonoBehaviour:
   grabMinBounds: {x: 1, y: -20}
   grabMaxBounds: {x: 20, y: 20}
   throwableBundleClickableRadius: 3
-  throwRandomVelocity: 1
-  throwRandomAngularVelocity: 1
+  throwRandomVelocity: 10
+  throwRandomAngularVelocity: 20
   invalidDiceRethrowLeftPosition: {x: 2, y: 2, z: -5}
   invalidDiceRethrowRightPosition: {x: 10, y: 2, z: -5}
   invalidDiceRethrowBaseOffset: {x: 0, y: 0, z: -2}
