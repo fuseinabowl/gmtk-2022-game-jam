@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3136369107922174040}
   - component: {fileID: -4951615999432625245}
+  - component: {fileID: 7549948855223118686}
   m_Layer: 0
   m_Name: DiceController
   m_TagString: Untagged
@@ -119,6 +120,7 @@ MonoBehaviour:
   invalidDiceRethrowBaseOffset: {x: 0, y: 0, z: -2}
   invalidDiceRethrowRandomOffset: 1
   invalidDiceRethrowDuration: 0.25
+  outputConsumableMovements: {fileID: 7549948855223118686}
   arrangingTopLeftPosition: {x: 2, y: 0, z: 6}
   arrangingHeight: 12
   arrangingHorizontalSpacing: 1.5
@@ -136,3 +138,15 @@ MonoBehaviour:
     up: {x: -1, y: 0, z: 0}
   - forward: {x: 0, y: 0, z: 1}
     up: {x: 0, y: -1, z: 0}
+--- !u!114 &7549948855223118686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8757049353096911893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcc004eef05a7f249ac67757aece1658, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

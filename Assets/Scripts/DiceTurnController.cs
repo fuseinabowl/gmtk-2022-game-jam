@@ -53,6 +53,9 @@ public class DiceTurnController : MonoBehaviour
     [SerializeField]
     private float invalidDiceRethrowDuration = 0.5f;
 
+    [SerializeField]
+    private ConsumableMovements outputConsumableMovements = null;
+
     private class Die
     {
         public GameObject gameObject = null;
@@ -66,6 +69,7 @@ public class DiceTurnController : MonoBehaviour
     {
         Assert.AreEqual(collectDiceOffsets.Count, numberOfDice);
         Assert.AreEqual(arrangingDiceRotations.Count, 6);
+        Assert.IsNotNull(outputConsumableMovements);
     }
 
     private void Start()
@@ -364,19 +368,6 @@ public class DiceTurnController : MonoBehaviour
         yield return new WaitForFixedUpdate();
     }
 
-    private void ReportResultsToWeightGame(List<int> seenFaceInstances)
-    {
-        // TODO
-        Debug.Log("Seen faces:\n"+
-            $"up: {seenFaceInstances[0]}\n"+
-            $"left: {seenFaceInstances[1]}\n"+
-            $"left-up: {seenFaceInstances[2]}\n"+
-            $"right-up: {seenFaceInstances[3]}\n"+
-            $"right: {seenFaceInstances[4]}\n"+
-            $"stop: {seenFaceInstances[5]}\n"
-            );
-    }
-
     [SerializeField]
     private Vector3 arrangingTopLeftPosition = Vector3.zero;
     [SerializeField]
@@ -435,5 +426,27 @@ public class DiceTurnController : MonoBehaviour
         yield return RunBezierPaths(beziers, arrangingDuration);
 
         ReportResultsToWeightGame(seenFaceInstances);
+    }
+
+    private void ReportResultsToWeightGame(List<int> seenFaceInstances)
+    {
+        // TODO
+        Debug.Log("Seen faces:\n"+
+            $"up: {seenFaceInstances[0]}\n"+
+            $"left: {seenFaceInstances[1]}\n"+
+            $"left-up: {seenFaceInstances[2]}\n"+
+            $"right-up: {seenFaceInstances[3]}\n"+
+            $"right: {seenFaceInstances[4]}\n"+
+            $"stop: {seenFaceInstances[5]}\n"
+        );
+
+        outputConsumableMovements.SetAvailableMovements(
+            seenFaceInstances[0],
+            seenFaceInstances[1],
+            seenFaceInstances[2],
+            seenFaceInstances[3],
+            seenFaceInstances[4],
+            seenFaceInstances[5]
+        );
     }
 }
