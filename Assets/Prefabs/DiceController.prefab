@@ -48,7 +48,7 @@ MonoBehaviour:
   diePrefab: {fileID: 7387645378793593163, guid: 703ebaa71b2a8314aa3123dcc6a642da, type: 3}
   numberOfDice: 10
   playerCamera: {fileID: 0}
-  collectDiceDuration: 1
+  collectDiceDuration: 0.2
   collectDiceRiseOffset: {x: 0, y: 1, z: 0}
   collectDiceLocation: {x: 5, y: 4, z: -5}
   collectDiceOffsets:
