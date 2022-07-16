@@ -1,19 +1,9 @@
 fileFormatVersion: 2
-guid: 5cd0d0a35d9e6404797c77e3a514f818
+guid: afcace022dd0bf54f84ed8370629279f
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: cross secction
-    second: {fileID: 2100000, guid: 5a93938c105f02245b929d5b033414a6, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: inside
-    second: {fileID: 2100000, guid: cd49bfeb48ed88444a8a986d654b795e, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
