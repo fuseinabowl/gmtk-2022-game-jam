@@ -115,12 +115,11 @@ MonoBehaviour:
   throwableBundleClickableRadius: 3
   throwRandomVelocity: 10
   throwRandomAngularVelocity: 20
-  invalidDiceRethrowLeftPosition: {x: 2, y: 2, z: -5}
-  invalidDiceRethrowRightPosition: {x: 8, y: 2, z: -5}
-  invalidDiceRethrowBaseOffset: {x: 0, y: 0, z: -2}
+  invalidDiceRethrowLeftPosition: {x: 2, y: 4, z: -5}
+  invalidDiceRethrowRightPosition: {x: 8, y: 4, z: -5}
+  invalidDiceRethrowBaseOffset: {x: 0, y: 0, z: -4}
   invalidDiceRethrowRandomOffset: 1
   invalidDiceRethrowDuration: 0.25
-  outputConsumableMovements: {fileID: 7549948855223118686}
   arrangingTopLeftPosition: {x: 2, y: 0, z: 6}
   arrangingHeight: 12
   arrangingHorizontalSpacing: 1.5
@@ -138,6 +137,8 @@ MonoBehaviour:
     up: {x: -1, y: 0, z: 0}
   - forward: {x: 0, y: 0, z: 1}
     up: {x: 0, y: -1, z: 0}
+  outputConsumableMovements: {fileID: 7549948855223118686}
+  gameUi: {fileID: 0}
 --- !u!114 &7549948855223118686
 MonoBehaviour:
   m_ObjectHideFlags: 0
