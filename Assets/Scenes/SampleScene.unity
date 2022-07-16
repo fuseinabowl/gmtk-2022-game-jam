@@ -292,6 +292,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: jack dice (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d0fe1f467ef7bb54fa532eafaa19fdbd, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0fe1f467ef7bb54fa532eafaa19fdbd, type: 3}
 --- !u!1 &272152351 stripped
