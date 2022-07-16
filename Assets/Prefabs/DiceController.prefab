@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3136369107922174040}
   - component: {fileID: -4951615999432625245}
+  - component: {fileID: 7549948855223118686}
   m_Layer: 0
   m_Name: DiceController
   m_TagString: Untagged
@@ -45,11 +46,107 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diePrefab: {fileID: 7387645378793593163, guid: 703ebaa71b2a8314aa3123dcc6a642da, type: 3}
-  numberOfDice: 6
+  numberOfDice: 10
   playerCamera: {fileID: 0}
   collectDiceDuration: 1
   collectDiceRiseOffset: {x: 0, y: 1, z: 0}
   collectDiceLocation: {x: 5, y: 4, z: -5}
-  collectDiceSpreadRadius: 2
-  throwableBundleClickableRadius: 1
-  jackedRethrowDiceDuration: 0.5
+  collectDiceOffsets:
+  - {x: 0, y: 0, z: 0}
+  - {x: 1.5, y: 0, z: 0}
+  - {x: 0, y: 1.5, z: 0}
+  - {x: 1.5, y: 1.5, z: 0}
+  - {x: 0, y: 0, z: 1.5}
+  - {x: 1.5, y: 0, z: 1.5}
+  - {x: 1.5, y: 0, z: 1.5}
+  - {x: 1.5, y: 0, z: 1.5}
+  - {x: 1.5, y: 0, z: 1.5}
+  - {x: 1.5, y: 0, z: 1.5}
+  grabScrunchOverTime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -5.952526
+      outSlope: -5.952526
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.03398927
+    - serializedVersion: 3
+      time: 0.1
+      value: 0.8
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  grabResponseOverTime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  grabMinBounds: {x: 2, y: -6}
+  grabMaxBounds: {x: 7, y: 5}
+  throwableBundleClickableRadius: 3
+  throwRandomVelocity: 10
+  throwRandomAngularVelocity: 20
+  invalidDiceRethrowLeftPosition: {x: 2, y: 2, z: -5}
+  invalidDiceRethrowRightPosition: {x: 8, y: 2, z: -5}
+  invalidDiceRethrowBaseOffset: {x: 0, y: 0, z: -2}
+  invalidDiceRethrowRandomOffset: 1
+  invalidDiceRethrowDuration: 0.25
+  outputConsumableMovements: {fileID: 7549948855223118686}
+  arrangingTopLeftPosition: {x: 2, y: 0, z: 6}
+  arrangingHeight: 12
+  arrangingHorizontalSpacing: 1.5
+  arrangingDuration: 0.25
+  arrangingDiceRotations:
+  - forward: {x: 0, y: 0, z: 1}
+    up: {x: 0, y: 1, z: 0}
+  - forward: {x: 0, y: 0, z: 1}
+    up: {x: -1, y: 0, z: 0}
+  - forward: {x: 0, y: 1, z: 0}
+    up: {x: 0, y: 0, z: -1}
+  - forward: {x: 0, y: -1, z: 0}
+    up: {x: 0, y: 0, z: -1}
+  - forward: {x: 0, y: 0, z: -1}
+    up: {x: -1, y: 0, z: 0}
+  - forward: {x: 0, y: 0, z: 1}
+    up: {x: 0, y: -1, z: 0}
+--- !u!114 &7549948855223118686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8757049353096911893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcc004eef05a7f249ac67757aece1658, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

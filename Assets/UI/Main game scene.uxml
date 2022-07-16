@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/StyleSheet.uss?fileID=7433441132597879392&amp;guid=64add83697edb5a4eba968a1bb65d3a8&amp;type=3#StyleSheet" />
+    <ui:VisualElement name="Panel" picking-mode="Ignore" style="flex-grow: 1; justify-content: flex-end; align-items: flex-end;">
+        <ui:Button text="Start Next Turn" display-tooltip-when-elided="true" name="NextTurn" />
+    </ui:VisualElement>
+</ui:UXML>
