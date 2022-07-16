@@ -200,6 +200,13 @@ public class DiceTurnController : MonoBehaviour
 
     private IEnumerator CollectAllDiceAndPrepareForRoll()
     {
+        foreach (var consumingDieAnimator in consumingDieAnimators)
+        {
+            StopCoroutine(consumingDieAnimator);
+        }
+
+        consumingDieAnimators.Clear();
+
         GetNextTurnButton().SetEnabled(false);
 
         foreach (var die in dice)
@@ -450,7 +457,6 @@ public class DiceTurnController : MonoBehaviour
         yield return RunBezierPaths(beziers, arrangingDuration);
 
         var seenFaceCounts = facingDice.Select(dieIndexList => dieIndexList.Count).ToList();
-        consumingDieAnimators.Clear();
         ReportResultsToWeightGame(seenFaceCounts);
         EnableNextTurnButton();
     }
