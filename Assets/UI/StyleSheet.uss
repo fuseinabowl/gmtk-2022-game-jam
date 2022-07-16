@@ -1,0 +1,23 @@
+Button {
+    background-image: url('project://database/Assets/UI/Sprites/KenneySpaceKit/squareBlue.png?fileID=2800000&guid=ac8feeab373112c4289efe7e2e06d007&type=3#squareBlue');
+    -unity-slice-left: 4;
+    -unity-slice-top: 4;
+    -unity-slice-right: 4;
+    -unity-slice-bottom: 4;
+    color: rgba(51, 51, 51, 255);
+    -unity-font-style: bold;
+    -unity-background-image-tint-color: rgba(229, 229, 229, 255);
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+Button:hover {
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+}
+
+Button:active {
+    -unity-background-image-tint-color: rgba(153, 153, 153, 255);
+}
