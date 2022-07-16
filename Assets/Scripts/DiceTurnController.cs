@@ -20,6 +20,8 @@ public class DiceTurnController : MonoBehaviour
     [SerializeField]
     private float collectDiceDuration = 0.5f;
     [SerializeField]
+    private Color collectDiceGlowColor = Color.white;
+    [SerializeField]
     [Tooltip("When picking up the dice to reroll, how high should the dice go when animating back to the throwable bundle?")]
     private Vector3 collectDiceRiseOffset = Vector3.up;
     [SerializeField]
@@ -89,12 +91,15 @@ public class DiceTurnController : MonoBehaviour
     public delegate void OnNewTurn();
     public OnNewTurn onNewTurn = null;
 
+    private Coroutine[] dieColorChangers = null;
+
     private class Die
     {
         public GameObject gameObject = null;
         public Rigidbody body = null;
         public DieFaceDetector faceDetector = null;
         public DieStoppedDetector stoppedDetector = null;
+        public MovementDieMaterialProperties materialProperties = null;
     }
     private List<Die> dice = null;
 
@@ -109,10 +114,16 @@ public class DiceTurnController : MonoBehaviour
     private void Start()
     {
         dice = CreateDice();
+        MakeDieColorChangerRecords();
         MakeDiceKinematic();
         MakeNextTurnButtonCollectDice();
         RegisterWithMovementConsumed();
         StartCoroutine(CollectAllDiceAndPrepareForRoll());
+    }
+
+    private void MakeDieColorChangerRecords()
+    {
+        dieColorChangers = Enumerable.Range(0, numberOfDice).Select(dieIndex => (Coroutine)null).ToArray();
     }
 
     private void MakeNextTurnButtonCollectDice()
@@ -130,12 +141,17 @@ public class DiceTurnController : MonoBehaviour
         return Enumerable.Range(0, numberOfDice)
             .Select(dieIndex => Instantiate(diePrefab))
             .Select(die =>
-                new Die{
+            {
+                var materialProperties = die.GetComponent<MovementDieMaterialProperties>();
+                materialProperties.glowColor = collectDiceGlowColor;
+                return new Die{
                     gameObject = die,
                     body = die.GetComponent<Rigidbody>(),
                     faceDetector = die.GetComponent<DieFaceDetector>(),
                     stoppedDetector = die.GetComponent<DieStoppedDetector>(),
-                })
+                    materialProperties = materialProperties,
+                };
+            })
             .ToList();
     }
 
@@ -204,6 +220,34 @@ public class DiceTurnController : MonoBehaviour
         return Quaternion.Lerp(startLerp, endLerp, time);
     }
 
+    private Coroutine ChangeDieColor(int dieIndex, Color newColor, float duration)
+    {
+        Assert.IsTrue(dieIndex >= 0);
+        Assert.IsTrue(dieIndex < numberOfDice);
+        var lastColorChanger = dieColorChangers[dieIndex];
+        if (lastColorChanger != null)
+        {
+            StopCoroutine(lastColorChanger);
+        }
+
+        dieColorChangers[dieIndex] = StartCoroutine(ChangeDieColorCoroutine(dieIndex, newColor, duration));
+        return dieColorChangers[dieIndex];
+    }
+
+    private IEnumerator ChangeDieColorCoroutine(int dieIndex, Color newColor, float duration)
+    {
+        var startTime = Time.time;
+        var endTime = startTime + duration;
+        var startColor = dice[dieIndex].materialProperties.glowColor;
+
+        do
+        {
+            yield return 0;
+            var timeProportion = (Time.time - startTime) / duration;
+            dice[dieIndex].materialProperties.glowColor = Color.Lerp(startColor, newColor, timeProportion);
+        } while (Time.time < endTime);
+    }
+
     private IEnumerator CollectAllDiceAndPrepareForRoll()
     {
         foreach (var consumingDieAnimator in consumingDieAnimators)
@@ -218,6 +262,11 @@ public class DiceTurnController : MonoBehaviour
         foreach (var die in dice)
         {
             Assert.IsTrue(die.body.isKinematic);
+        }
+
+        foreach (var dieIndex in Enumerable.Range(0, dice.Count))
+        {
+            ChangeDieColor(dieIndex, collectDiceGlowColor, collectDiceDuration);
         }
 
         // create bezier path control points for each die

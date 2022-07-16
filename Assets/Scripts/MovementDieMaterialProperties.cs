@@ -11,7 +11,7 @@ public class MovementDieMaterialProperties : MonoBehaviour
 
     [SerializeField]
     [ColorUsage(false, true)]
-    private Color glowColor = Color.white;
+    public Color glowColor = Color.white;
 
     private MaterialPropertyBlock propertyBlock = null;
 

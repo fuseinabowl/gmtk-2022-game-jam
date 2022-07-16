@@ -49,6 +49,7 @@ MonoBehaviour:
   numberOfDice: 10
   playerCamera: {fileID: 0}
   collectDiceDuration: 0.2
+  collectDiceGlowColor: {r: 0.27450982, g: 0, b: 0, a: 1}
   collectDiceRiseOffset: {x: 0, y: 1, z: 0}
   collectDiceLocation: {x: 5, y: 4, z: -5}
   collectDiceOffsets:
@@ -141,6 +142,7 @@ MonoBehaviour:
   consumedDieOffset: {x: 0, y: -1, z: 0}
   cosumedDieAnimationDuration: 0.2
   gameUi: {fileID: 0}
+  storyPopUpController: {fileID: 0}
 --- !u!114 &7549948855223118686
 MonoBehaviour:
   m_ObjectHideFlags: 0
