@@ -1267,6 +1267,10 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5754084199372789682, guid: 5cd0d0a35d9e6404797c77e3a514f818, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -5495902117074765545, guid: 8e3c5822d0a8dde4dbbd250e9ac4cc42, type: 3}
     - target: {fileID: 919132149155446097, guid: 5cd0d0a35d9e6404797c77e3a514f818, type: 3}
       propertyPath: m_Name
       value: half dice
@@ -1576,7 +1580,7 @@ MonoBehaviour:
   gravity: 30
   my_die_turn_con: {fileID: 1389162637}
   my_con_movements: {fileID: 1389162636}
-  Player: {fileID: 0}
+  Player: {fileID: 1352266716}
 --- !u!54 &1352266718
 Rigidbody:
   m_ObjectHideFlags: 0
