@@ -120,7 +120,7 @@ MonoBehaviour:
   invalidDiceRethrowBaseOffset: {x: 0, y: 0, z: -4}
   invalidDiceRethrowRandomOffset: 1
   invalidDiceRethrowDuration: 0.25
-  arrangingTopLeftPosition: {x: 2, y: 0, z: 6}
+  arrangingTopLeftPosition: {x: 2, y: 1, z: 6}
   arrangingHeight: 12
   arrangingHorizontalSpacing: 1.5
   arrangingDuration: 0.25
@@ -138,6 +138,8 @@ MonoBehaviour:
   - forward: {x: 0, y: 0, z: 1}
     up: {x: 0, y: -1, z: 0}
   outputConsumableMovements: {fileID: 7549948855223118686}
+  consumedDieOffset: {x: 0, y: -1, z: 0}
+  cosumedDieAnimationDuration: 0.2
   gameUi: {fileID: 0}
 --- !u!114 &7549948855223118686
 MonoBehaviour:
