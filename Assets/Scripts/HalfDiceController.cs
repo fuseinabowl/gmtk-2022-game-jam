@@ -15,7 +15,7 @@ public class HalfDiceController : MonoBehaviour
     private GameObject[] weightedZones;
     [SerializeField]
     private Animator[] goalIndicators;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,13 +28,13 @@ public class HalfDiceController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        
+
         if (spinning){
             Quaternion targetRotation = Quaternion.Euler(0, target, 270);
             my_trans.rotation = Quaternion.RotateTowards(my_trans.rotation, targetRotation, Time.deltaTime * smoothing);
-        }   
-        
-        
+        }
+
+
     }
 
     //rotation references per zone
@@ -55,10 +55,12 @@ public class HalfDiceController : MonoBehaviour
                 newZone = 0;
             }
         }
-        
+
         switch(id){
             case 0:
                 target = 180;
+                weightedZones[id].SetActive(false);
+                weightedZones[newZone].SetActive(true);
                 break;
             case 1:
                 target = 270;
