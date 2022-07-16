@@ -42,13 +42,17 @@ public class WeightController : MonoBehaviour
     private ConsumableMovements my_con_movements;
 
     private RigidbodyConstraints cachedLiveConstraints = RigidbodyConstraints.None;
+    
+    [SerializeField]
+    private GameObject Player;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        my_rigid = GetComponent<Rigidbody>();
-        my_trans = GetComponent<Transform>();
+        
+        my_rigid = Player.GetComponent<Rigidbody>();
+        my_trans = Player.GetComponent<Transform>();
 
         arrowLine = arrow.GetComponentInChildren<LineRenderer>();
         mouseArea = new Vector3(); 
