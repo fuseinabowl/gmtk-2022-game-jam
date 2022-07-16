@@ -42,7 +42,14 @@ public class ConsumableMovements : MonoBehaviour
 
     public int GetAvailableMovementActions(Movement movement)
     {
-        return availableMovements[(int)movement];
+        if (isReadyToShare)
+        {
+            return availableMovements[(int)movement];
+        }
+        else
+        {
+            return 0;
+        }
     }
 
     public void ConsumeMovement(Movement movement)

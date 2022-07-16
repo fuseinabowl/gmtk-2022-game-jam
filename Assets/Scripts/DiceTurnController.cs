@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Assertions;
+using UnityEngine.UIElements;
 
 public class DiceTurnController : MonoBehaviour
 {
@@ -54,7 +55,30 @@ public class DiceTurnController : MonoBehaviour
     private float invalidDiceRethrowDuration = 0.5f;
 
     [SerializeField]
+    private Vector3 arrangingTopLeftPosition = Vector3.zero;
+    [SerializeField]
+    private float arrangingHeight = 12f;
+    [SerializeField]
+    private float arrangingHorizontalSpacing = 12f;
+    [SerializeField]
+    private float arrangingDuration = 0.25f;
+
+    [Serializable]
+    private class FaceLookAt
+    {
+        [SerializeField]
+        public Vector3 forward;
+        [SerializeField]
+        public Vector3 up;
+    }
+    [SerializeField]
+    private List<FaceLookAt> arrangingDiceRotations = null;
+
+    [SerializeField]
     private ConsumableMovements outputConsumableMovements = null;
+
+    [SerializeField]
+    private UIDocument gameUi = null;
 
     private class Die
     {
@@ -70,13 +94,24 @@ public class DiceTurnController : MonoBehaviour
         Assert.AreEqual(collectDiceOffsets.Count, numberOfDice);
         Assert.AreEqual(arrangingDiceRotations.Count, 6);
         Assert.IsNotNull(outputConsumableMovements);
+        Assert.IsNotNull(gameUi);
     }
 
     private void Start()
     {
         dice = CreateDice();
         MakeDiceKinematic();
+        MakeNextTurnButtonCollectDice();
         StartCoroutine(CollectAllDiceAndPrepareForRoll());
+    }
+
+    private void MakeNextTurnButtonCollectDice()
+    {
+        GetNextTurnButton().clicked += () =>
+        {
+            outputConsumableMovements.StopSharingMovements();
+            StartCoroutine(CollectAllDiceAndPrepareForRoll());
+        };
     }
 
     private List<Die> CreateDice()
@@ -160,6 +195,8 @@ public class DiceTurnController : MonoBehaviour
 
     private IEnumerator CollectAllDiceAndPrepareForRoll()
     {
+        GetNextTurnButton().SetEnabled(false);
+
         foreach (var die in dice)
         {
             Assert.IsTrue(die.body.isKinematic);
@@ -368,26 +405,6 @@ public class DiceTurnController : MonoBehaviour
         yield return new WaitForFixedUpdate();
     }
 
-    [SerializeField]
-    private Vector3 arrangingTopLeftPosition = Vector3.zero;
-    [SerializeField]
-    private float arrangingHeight = 12f;
-    [SerializeField]
-    private float arrangingHorizontalSpacing = 12f;
-    [SerializeField]
-    private float arrangingDuration = 0.25f;
-
-    [Serializable]
-    private class FaceLookAt
-    {
-        [SerializeField]
-        public Vector3 forward;
-        [SerializeField]
-        public Vector3 up;
-    }
-    [SerializeField]
-    private List<FaceLookAt> arrangingDiceRotations = null;
-
     private IEnumerator ArrangeDiceResults()
     {
         var seenFaceInstances = Enumerable.Range(0,6).Select(index => 0).ToList();
@@ -426,6 +443,7 @@ public class DiceTurnController : MonoBehaviour
         yield return RunBezierPaths(beziers, arrangingDuration);
 
         ReportResultsToWeightGame(seenFaceInstances);
+        EnableNextTurnButton();
     }
 
     private void ReportResultsToWeightGame(List<int> seenFaceInstances)
@@ -448,5 +466,15 @@ public class DiceTurnController : MonoBehaviour
             seenFaceInstances[4],
             seenFaceInstances[5]
         );
+    }
+
+    private void EnableNextTurnButton()
+    {
+        GetNextTurnButton().SetEnabled(true);
+    }
+
+    private Button GetNextTurnButton()
+    {
+        return gameUi.rootVisualElement.Q<VisualElement>("MainPanel").Q<Button>("NextTurn");
     }
 }
