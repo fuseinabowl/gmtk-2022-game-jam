@@ -45,6 +45,7 @@ public class WeightController : MonoBehaviour
     
     [SerializeField]
     private GameObject Player;
+    private bool inGoalZone;
 
 
     // Start is called before the first frame update
@@ -81,14 +82,29 @@ public class WeightController : MonoBehaviour
         }
         if(Input.GetKeyDown("space")){
             var myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Stop);
-            if (myMovements > 0){
+            if (myMovements > 0 || inGoalZone){
                 Stop();
-                my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
+                if(!inGoalZone){
+                    my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
+                }
+                
                 Debug.Log("stop action used");
             }else{
                 Debug.Log("No Action to use!");
             }
             
+        }
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if(other.tag == "GoalZone"){
+            inGoalZone = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        if(other.tag == "GoalZone"){
+            inGoalZone = false;
         }
     }
 
