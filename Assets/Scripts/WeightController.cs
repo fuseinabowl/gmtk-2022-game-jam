@@ -41,8 +41,6 @@ public class WeightController : MonoBehaviour
     [SerializeField]
     private ConsumableMovements my_con_movements;
 
-    private bool weighingDown = false;
-
     private RigidbodyConstraints cachedLiveConstraints = RigidbodyConstraints.None;
 
 
