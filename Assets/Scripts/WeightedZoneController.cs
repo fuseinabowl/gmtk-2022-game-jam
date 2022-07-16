@@ -8,16 +8,34 @@ public class WeightedZoneController : MonoBehaviour
     private HalfDiceController my_half_dice_con;
     [SerializeField]
     private int id;
+    [SerializeField]
+    private float rotateTimerMax;
+    private float curRotateTimer;
+    private bool isInZone;
+
+    private void Update() {
+        if(isInZone){
+            curRotateTimer -= Time.deltaTime;
+            if (curRotateTimer <= 0){
+                my_half_dice_con.spin(id);
+            }
+        }
+        
+    }
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player"){
-            my_half_dice_con.spin(id);
+            if(!isInZone){
+                curRotateTimer = rotateTimerMax;
+            }
+            isInZone = true;
         }
     }
 
     private void OnTriggerExit(Collider other) {
         if (other.tag == "Player"){
-            Debug.Log("Player exited Zone");
+            isInZone = false;
+            curRotateTimer = rotateTimerMax;
         }
     }
 }

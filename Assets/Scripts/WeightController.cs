@@ -108,20 +108,24 @@ public class WeightController : MonoBehaviour
     }
 
     private void OnMouseDown() {
-        var myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Up);
-       //my_rigid.AddForce(new Vector3(10.0f, 0.0f, 10.0f), ForceMode.Impulse);
-        mouseArea = Camera.main.ScreenToWorldPoint(
-            new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane)
-        );
-        my_rigid.velocity = my_rigid.velocity * clickLinearSpeedMultiplier;
-        startPosition = mouseArea;
-        Time.timeScale = clickTimeSpeedMultiplier;
-
+        if(my_con_movements.getIfReadyToShare()){
+            var myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Up);
+            //my_rigid.AddForce(new Vector3(10.0f, 0.0f, 10.0f), ForceMode.Impulse);
+            mouseArea = Camera.main.ScreenToWorldPoint(
+                new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane)
+            );
+            my_rigid.velocity = my_rigid.velocity * clickLinearSpeedMultiplier;
+            startPosition = mouseArea;
+            Time.timeScale = clickTimeSpeedMultiplier;
+        }
     }
 
     private void OnMouseDrag() {
-        arrowLine.enabled = true;
-        DrawArrow();
+        if(my_con_movements.getIfReadyToShare()){
+            arrowLine.enabled = true;
+            DrawArrow();
+        }
+        
         
     }
 
@@ -149,50 +153,54 @@ public class WeightController : MonoBehaviour
 
     private void OnMouseUp() {
         Time.timeScale = 1.0f;
-        arrowLine.enabled = false;
-        ReleaseStop();
-        Vector3 magnitude = mouseArea - startPosition;
-        int newAngle = (int) Vector3.SignedAngle((mouseArea - startPosition), Vector3.right, Vector3.up);
-        
-        if (newAngle <= -165 || newAngle >= -15){
-            if(newAngle >= 144 || newAngle <= -165){
-                int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Left);
-                if( myMovements > 0){
-                    Flick(magnitude);
-                    Debug.Log("Leftmost Action used!");
-                    my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Left);
-                }
-            }else if(newAngle >= 108){
-                int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.LeftUp);
-                if( myMovements > 0){
-                    Flick(magnitude);
-                    Debug.Log("LeftUp Action used!");
-                    my_con_movements.ConsumeMovement(ConsumableMovements.Movement.LeftUp);
-                }
-            }else if(newAngle >= 72){
-                int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Up);
-                if( myMovements > 0){
-                    Flick(magnitude);
-                    Debug.Log("LeftUp Action used!");
-                    my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Up);
-                }
-            }else if(newAngle >= 36){
-                int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.RightUp);
-                if( myMovements > 0){
-                    Flick(magnitude);
-                    Debug.Log("Right Action used!");
-                    my_con_movements.ConsumeMovement(ConsumableMovements.Movement.RightUp);
-                }
-            }else if(newAngle >= -15){
-                int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Right);
-                if( myMovements > 0){
-                    Flick(magnitude);
-                    Debug.Log("Right Action used!");
-                    my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Right);
-                }
-            }
+        if(my_con_movements.getIfReadyToShare()){
+           
+            arrowLine.enabled = false;
+            ReleaseStop();
+            Vector3 magnitude = mouseArea - startPosition;
+            int newAngle = (int) Vector3.SignedAngle((mouseArea - startPosition), Vector3.right, Vector3.up);
             
+            if (newAngle <= -165 || newAngle >= -15){
+                if(newAngle >= 144 || newAngle <= -165){
+                    int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Left);
+                    if( myMovements > 0){
+                        Flick(magnitude);
+                        Debug.Log("Leftmost Action used!");
+                        my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Left);
+                    }
+                }else if(newAngle >= 108){
+                    int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.LeftUp);
+                    if( myMovements > 0){
+                        Flick(magnitude);
+                        Debug.Log("LeftUp Action used!");
+                        my_con_movements.ConsumeMovement(ConsumableMovements.Movement.LeftUp);
+                    }
+                }else if(newAngle >= 72){
+                    int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Up);
+                    if( myMovements > 0){
+                        Flick(magnitude);
+                        Debug.Log("LeftUp Action used!");
+                        my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Up);
+                    }
+                }else if(newAngle >= 36){
+                    int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.RightUp);
+                    if( myMovements > 0){
+                        Flick(magnitude);
+                        Debug.Log("Right Action used!");
+                        my_con_movements.ConsumeMovement(ConsumableMovements.Movement.RightUp);
+                    }
+                }else if(newAngle >= -15){
+                    int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Right);
+                    if( myMovements > 0){
+                        Flick(magnitude);
+                        Debug.Log("Right Action used!");
+                        my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Right);
+                    }
+                }
+                
+            } 
         }
+        
         
     }
 

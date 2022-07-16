@@ -86,4 +86,8 @@ public class ConsumableMovements : MonoBehaviour
         }
         ClearMovementsConsumedThisTurn();
     }
+
+    public bool getIfReadyToShare(){
+        return isReadyToShare;
+    }
 }

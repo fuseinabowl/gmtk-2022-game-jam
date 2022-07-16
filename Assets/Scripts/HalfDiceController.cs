@@ -13,6 +13,7 @@ public class HalfDiceController : MonoBehaviour
     private bool spinning = false;
     [SerializeField]
     private GameObject[] weightedZones;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +30,7 @@ public class HalfDiceController : MonoBehaviour
             my_trans.rotation = Quaternion.RotateTowards(my_trans.rotation, targetRotation, Time.deltaTime * smoothing);
         }   
         
-        Debug.Log(spinning);
+        
     }
 
     //rotation references per zone
@@ -39,7 +40,8 @@ public class HalfDiceController : MonoBehaviour
     //y = 270 -> weightedZone_1/2
 
     public void spin(int id){
-        Player.transform.SetParent(my_trans);
+        Debug.Log("Spin me");
+        //Player.transform.SetParent(my_trans);
         Player.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
         spinning = true;
         int newZone = Random.Range(0, 4);
