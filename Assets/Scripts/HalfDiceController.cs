@@ -13,6 +13,8 @@ public class HalfDiceController : MonoBehaviour
     private bool spinning = false;
     [SerializeField]
     private GameObject[] weightedZones;
+    [SerializeField]
+    private Animator[] goalIndicators;
     
     // Start is called before the first frame update
     void Start()

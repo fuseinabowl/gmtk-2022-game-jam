@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="BackGround" style="max-width: initial; max-height: initial; min-height: initial; min-width: initial; width: 100%; height: 100%; background-image: url(&apos;project://database/Assets/Art/dice%20ow%202.png?fileID=2800000&amp;guid=59398d924a10dda468769c1d8d736540&amp;type=3#dice ow 2&apos;);">
+        <ui:Button text="Start" display-tooltip-when-elided="true" name="StartButton" style="left: 35%; top: 70%; right: 0; bottom: 0; width: 30%; height: 10%;" />
+    </ui:VisualElement>
+</ui:UXML>
