@@ -1435,8 +1435,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arrowheadSize: 0.2
   arrow: {fileID: 1202140421}
+  preFlickLinearSpeedMultiplier: 0.1
   speed: 10
-  slowdownSpeed: 0.3
+  clickTimeSpeedMultiplier: 0.3
+  clickLinearSpeedMultiplier: 1
   gravity: 30
   my_die_turn_con: {fileID: 1389162637}
   my_con_movements: {fileID: 1389162636}
