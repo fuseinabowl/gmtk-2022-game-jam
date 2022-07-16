@@ -81,7 +81,54 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  grabResponseOverTime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   grabMinBounds: {x: 1, y: -20}
   grabMaxBounds: {x: 20, y: 20}
   throwableBundleClickableRadius: 3
-  jackedRethrowDiceDuration: 0.5
+  throwRandomVelocity: 1
+  throwRandomAngularVelocity: 1
+  invalidDiceRethrowLeftPosition: {x: -1, y: 0, z: 0}
+  invalidDiceRethrowRightPosition: {x: 1, y: 0, z: 0}
+  invalidDiceRethrowBaseOffset: {x: 0, y: 0, z: -2}
+  invalidDiceRethrowRandomOffset: 1
+  invalidDiceRethrowDuration: 0.5
+  arrangingTopLeftPosition: {x: 2, y: 0, z: 6}
+  arrangingHeight: 12
+  arrangingHorizontalSpacing: 2
+  arrangingDuration: 0.25
+  arrangingDiceRotations:
+  - forward: {x: 0, y: 0, z: 1}
+    up: {x: 0, y: 1, z: 0}
+  - forward: {x: 0, y: 0, z: 1}
+    up: {x: 1, y: 0, z: 0}
+  - forward: {x: 0, y: 1, z: 0}
+    up: {x: 0, y: 0, z: 1}
+  - forward: {x: 0, y: 1, z: 0}
+    up: {x: 0, y: 0, z: -1}
+  - forward: {x: 0, y: 0, z: -1}
+    up: {x: 1, y: 0, z: 0}
+  - forward: {x: 0, y: 0, z: 1}
+    up: {x: 0, y: -1, z: 0}

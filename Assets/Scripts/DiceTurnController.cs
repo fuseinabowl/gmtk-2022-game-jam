@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +43,15 @@ public class DiceTurnController : MonoBehaviour
     private float throwRandomAngularVelocity = 1f;
 
     [SerializeField]
-    private float jackedRethrowDiceDuration = 0.5f;
+    private Vector3 invalidDiceRethrowLeftPosition = Vector3.left;
+    [SerializeField]
+    private Vector3 invalidDiceRethrowRightPosition = Vector3.right;
+    [SerializeField]
+    private Vector3 invalidDiceRethrowBaseOffset = Vector3.back * 2f;
+    [SerializeField]
+    private float invalidDiceRethrowRandomOffset = 1f;
+    [SerializeField]
+    private float invalidDiceRethrowDuration = 0.5f;
 
     private class Die
     {
@@ -56,6 +65,7 @@ public class DiceTurnController : MonoBehaviour
     private void Awake()
     {
         Assert.AreEqual(collectDiceOffsets.Count, numberOfDice);
+        Assert.AreEqual(arrangingDiceRotations.Count, 6);
     }
 
     private void Start()
@@ -100,8 +110,10 @@ public class DiceTurnController : MonoBehaviour
         var startTime = Time.time;
         var endTime = startTime + duration;
 
-        while (Time.time < endTime)
+        do
         {
+            yield return 0;
+
             var timeProportion = Mathf.InverseLerp(startTime, endTime, Time.time);
 
             foreach (var diePath in bezierPaths)
@@ -109,13 +121,13 @@ public class DiceTurnController : MonoBehaviour
                 var dieTransform = dice[diePath.dieIndex].gameObject.transform;
                 dieTransform.position = BezierLerp(diePath.startPosition, diePath.control0, diePath.control1, diePath.endPosition, timeProportion);
             }
-
-            yield return 0;
-        }
+        } while (Time.time < endTime);
     }
 
-    private Vector3 BezierLerp(Vector3 start, Vector3 control0, Vector3 control1, Vector3 end, float time)
+    private Vector3 BezierLerp(Vector3 start, Vector3 control0, Vector3 control1, Vector3 end, float timeUnclamped)
     {
+        var time = Mathf.Clamp(timeUnclamped, 0f, 1f);
+
         var mid = Vector3.Lerp(control0, control1, time);
 
         var startLerp = Vector3.Lerp(start, mid, time);
@@ -172,8 +184,8 @@ public class DiceTurnController : MonoBehaviour
 
         foreach (var die in dice)
         {
-            die.body.velocity = lastFrameVelocity + Random.insideUnitSphere * throwRandomVelocity;
-            die.body.angularVelocity = Random.insideUnitSphere * throwRandomAngularVelocity;
+            die.body.velocity = lastFrameVelocity + UnityEngine.Random.insideUnitSphere * throwRandomVelocity;
+            die.body.angularVelocity = UnityEngine.Random.insideUnitSphere * throwRandomAngularVelocity;
             die.body.isKinematic = false;
         }
 
@@ -258,13 +270,20 @@ public class DiceTurnController : MonoBehaviour
             jackedDieIndices.Clear();
             jackedDieIndices.AddRange(GetJackedDieIndices());
             
-            yield return RethrowJackedDice(jackedDieIndices);
+            if (jackedDieIndices.Count > 0)
+            {
+                yield return RethrowInvalidDice(jackedDieIndices);
+            }
         } while (jackedDieIndices.Count > 0);
 
-        Debug.Log("All dice are stable");
+        foreach (var die in dice)
+        {
+            die.body.isKinematic = true;
+        }
 
-        // TODO
-        // StartCoroutine(ReportToWeightGameAndArrangeDiceResults());
+        ReportResultsToWeightGame();
+
+        StartCoroutine(ArrangeDiceResults());
     }
 
     private bool AreAllDiceStable()
@@ -277,17 +296,97 @@ public class DiceTurnController : MonoBehaviour
         return Enumerable.Range(0, dice.Count).Where(dieIndex => dice[dieIndex].faceDetector.IsJacked());
     }
 
-    private IEnumerator RethrowJackedDice(List<int> jackedDieIndices)
+    private IEnumerator RethrowInvalidDice(List<int> jackedDieIndices)
+    {
+        foreach (var dieIndex in jackedDieIndices)
+        {
+            var die = dice[dieIndex];
+            die.body.isKinematic = true;
+        }
+
+        var bezierPaths = Enumerable.Range(0, jackedDieIndices.Count)
+            .Select(jackedIndex => {
+                var jackedProportionOnLine = (float)(jackedIndex + 1) / (jackedDieIndices.Count + 1);
+                var dieIndex = jackedDieIndices[jackedIndex];
+                var die = dice[dieIndex];
+                var restartPosition = Vector3.Lerp(invalidDiceRethrowLeftPosition, invalidDiceRethrowRightPosition, jackedProportionOnLine);
+                var restartThrowOffset = invalidDiceRethrowBaseOffset + UnityEngine.Random.insideUnitSphere * invalidDiceRethrowRandomOffset;
+                return new DieBezierPath{
+                    dieIndex = dieIndex,
+                    startPosition = die.gameObject.transform.position,
+                    control0 = die.gameObject.transform.position + collectDiceRiseOffset,
+                    control1 = restartPosition + restartThrowOffset,
+                    endPosition = restartPosition,
+                };
+            })
+            .ToList();
+
+        yield return RunBezierPaths(bezierPaths, invalidDiceRethrowDuration);
+
+        for (var jackedIndex = 0; jackedIndex < jackedDieIndices.Count; ++jackedIndex)
+        {
+            var bezier = bezierPaths[jackedIndex];
+            var dieIndex = jackedDieIndices[jackedIndex];
+            var body = dice[dieIndex].body;
+            body.velocity = (bezier.endPosition - bezier.control1) / invalidDiceRethrowDuration;
+            body.angularVelocity = Vector3.zero;
+            body.isKinematic = false;
+        }
+
+        yield return new WaitForFixedUpdate();
+    }
+
+    private void ReportResultsToWeightGame()
     {
         // TODO
-        // create bezier control points
+        Debug.Log("All dice are stable");
+    }
 
-        var endTime = Time.time + jackedRethrowDiceDuration;
-        while (Time.time < endTime)
-        {
-            // TODO
-            // move target dice to rethrow location
-            yield return 0;
-        }
+    [SerializeField]
+    private Vector3 arrangingTopLeftPosition = Vector3.zero;
+    [SerializeField]
+    private float arrangingHeight = 12f;
+    [SerializeField]
+    private float arrangingHorizontalSpacing = 12f;
+    [SerializeField]
+    private float arrangingDuration = 0.25f;
+
+    [Serializable]
+    private class FaceLookAt
+    {
+        [SerializeField]
+        public Vector3 forward;
+        [SerializeField]
+        public Vector3 up;
+    }
+    [SerializeField]
+    private List<FaceLookAt> arrangingDiceRotations = null;
+
+    private IEnumerator ArrangeDiceResults()
+    {
+        var seenFaceInstances = Enumerable.Range(0,6).Select(index => 0).ToList();
+
+        var topPosition = arrangingTopLeftPosition;
+        var bottomPosition = topPosition + Vector3.back * arrangingHeight;
+
+        var beziers = dice
+            .Select((die, dieIndex) => {
+                var face = die.faceDetector.GetUpFace();
+                var faceVerticalPosition = Vector3.Lerp(topPosition, bottomPosition, (float)face / 5f);
+                var faceHorizontalOffset = Vector3.right * seenFaceInstances[face] * arrangingHorizontalSpacing;
+                var targetPosition = faceVerticalPosition + faceHorizontalOffset;
+                seenFaceInstances[face] = seenFaceInstances[face] + 1;
+
+                return new DieBezierPath{
+                    dieIndex = dieIndex,
+                    startPosition = die.gameObject.transform.position,
+                    control0 = die.gameObject.transform.position,
+                    control1 = targetPosition,
+                    endPosition = targetPosition,
+                };
+            })
+            .ToList();
+
+        yield return RunBezierPaths(beziers, arrangingDuration);
     }
 }
