@@ -19,7 +19,9 @@ public class HalfDiceController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        weightedZones[(int)Random.Range(0, 4)].SetActive(true);
+        int startZone = (int)Random.Range(0, 4);
+        weightedZones[startZone].SetActive(true);
+        goalIndicators[startZone].SetBool("ShouldBeOn", true);
         my_trans = GetComponent<Transform>();
     }
 
@@ -57,32 +59,26 @@ public class HalfDiceController : MonoBehaviour
         switch(id){
             case 0:
                 target = 180;
-                weightedZones[id].SetActive(false);
-                weightedZones[newZone].SetActive(true);
-                goa
                 break;
             case 1:
                 target = 270;
-                weightedZones[id].SetActive(false);
-                weightedZones[newZone].SetActive(true);
                 break;
             case 2:
                 target = 270;
-                weightedZones[id].SetActive(false);
-                weightedZones[newZone].SetActive(true);
                 break;
             case 3:
                 target = 0;
-                weightedZones[id].SetActive(false);
-                weightedZones[newZone].SetActive(true);
                 break;
             case 4:
                 target = 90;
-                weightedZones[id].SetActive(false);
-                weightedZones[newZone].SetActive(true);
                 break;
 
         }
+
+        weightedZones[id].SetActive(false);
+        goalIndicators[id].SetBool("ShouldBeOn", false);
+        weightedZones[newZone].SetActive(true);
+        goalIndicators[newZone].SetBool("ShouldBeOn", true);
 
     }
 
