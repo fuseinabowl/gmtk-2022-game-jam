@@ -5,23 +5,19 @@ using UnityEngine;
 public class WeightedZoneController : MonoBehaviour
 {
     [SerializeField]
-    private GameObject[] zones;
+    private HalfDiceController my_half_dice_con;
     [SerializeField]
-    private GameObject halfDice;
-    [SerializeField]
-    private GameObject playerDice;
+    private int id;
 
-    [SerializeField]
-    private 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    private void OnTriggerEnter(Collider other) {
+        if (other.tag == "Player"){
+            my_half_dice_con.spin(id);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private void OnTriggerExit(Collider other) {
+        if (other.tag == "Player"){
+            Debug.Log("Player exited Zone");
+        }
     }
 }
