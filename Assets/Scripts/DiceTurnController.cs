@@ -37,6 +37,11 @@ public class DiceTurnController : MonoBehaviour
     private float throwableBundleClickableRadius = 1f;
 
     [SerializeField]
+    private float throwRandomVelocity = 1f;
+    [SerializeField]
+    private float throwRandomAngularVelocity = 1f;
+
+    [SerializeField]
     private float jackedRethrowDiceDuration = 0.5f;
 
     private class Die
@@ -154,11 +159,22 @@ public class DiceTurnController : MonoBehaviour
         }
 
         var grabTime = Time.time;
+        var lastFramePosition = MoveDiceBundleToCursor(0f);
+        var lastFrameVelocity = Vector3.zero;
         while (IsUserCurrentlyHoldingMouseDown())
         {
-            var grabDuration = Time.time - grabTime;
-            MoveDiceBundleToCursor(grabDuration);
             yield return 0;
+            var grabDuration = Time.time - grabTime;
+            var thisFramePosition = MoveDiceBundleToCursor(grabDuration);
+            lastFrameVelocity = (thisFramePosition - lastFramePosition) / Time.deltaTime;
+            lastFramePosition = thisFramePosition;
+        }
+
+        foreach (var die in dice)
+        {
+            die.body.velocity = lastFrameVelocity + Random.insideUnitSphere * throwRandomVelocity;
+            die.body.angularVelocity = Random.insideUnitSphere * throwRandomAngularVelocity;
+            die.body.isKinematic = false;
         }
 
         StartCoroutine(ThrowDiceAndWaitForResult());
@@ -191,7 +207,7 @@ public class DiceTurnController : MonoBehaviour
         return Input.GetMouseButton(0);
     }
 
-    private void MoveDiceBundleToCursor(float grabDuration)
+    private Vector3 MoveDiceBundleToCursor(float grabDuration)
     {
         var rawGrabPoint = GetMouseLocationOnGrabPlane();
         var grabPointInsideBounds = ClampGrabPointInsideBounds(rawGrabPoint);
@@ -207,6 +223,8 @@ public class DiceTurnController : MonoBehaviour
 
             die.gameObject.transform.position = diceBundleCenter + scrunchOffset * scrunchMultiplier;
         }
+
+        return diceBundleCenter;
     }
 
     private Vector3 GetMouseLocationOnGrabPlane()
