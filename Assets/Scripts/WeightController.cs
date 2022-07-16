@@ -107,20 +107,6 @@ public class WeightController : MonoBehaviour
         stopped = false;
     }
 
-    private void OnTriggerEnter(Collider other) {
-        if (other.tag == "GoalZone"){
-            Debug.Log("Reached a zone!");
-            weighingDown = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other) {
-        if (other.tag == "GoalZone"){
-            Debug.Log("Reached a zone!");
-            weighingDown = false;
-        }
-    }
-
     private void OnMouseDown() {
         var myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Up);
        //my_rigid.AddForce(new Vector3(10.0f, 0.0f, 10.0f), ForceMode.Impulse);
@@ -136,8 +122,6 @@ public class WeightController : MonoBehaviour
     private void OnMouseDrag() {
         arrowLine.enabled = true;
         DrawArrow();
-        //Debug.Log(startPosition.x);
-        //Debug.Log(startPosition.y);
         
     }
 

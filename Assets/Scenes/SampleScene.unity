@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &124277001 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5cd0d0a35d9e6404797c77e3a514f818, type: 3}
+  m_PrefabInstance: {fileID: 998755807}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &136745209
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,6 +616,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4722760714961176530, guid: d0cd8636c16a4374ea8756a9258eb49a, type: 3}
   m_PrefabInstance: {fileID: 585304887}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &585304891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585304889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daac2f371c5f61a4da9361cc2e90f376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  my_half_dice_con: {fileID: 2012430190}
+  id: 4
 --- !u!1 &657357791
 GameObject:
   m_ObjectHideFlags: 0
@@ -1550,6 +1569,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4722760714961176530, guid: d0cd8636c16a4374ea8756a9258eb49a, type: 3}
   m_PrefabInstance: {fileID: 1380845725}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1380845729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380845727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daac2f371c5f61a4da9361cc2e90f376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  my_half_dice_con: {fileID: 2012430190}
+  id: 1
 --- !u!114 &1389162636 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7549948855223118686, guid: 60a95dc43409feb489d6e3772c84d973, type: 3}
@@ -2172,6 +2205,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4722760714961176530, guid: d0cd8636c16a4374ea8756a9258eb49a, type: 3}
   m_PrefabInstance: {fileID: 1652614234}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1652614238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1652614236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daac2f371c5f61a4da9361cc2e90f376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  my_half_dice_con: {fileID: 2012430190}
+  id: 3
 --- !u!1 &1683976138
 GameObject:
   m_ObjectHideFlags: 0
@@ -2318,14 +2365,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daac2f371c5f61a4da9361cc2e90f376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zones:
-  - {fileID: 5717344987189504708}
-  - {fileID: 1380845727}
-  - {fileID: 1987288886}
-  - {fileID: 1652614236}
-  - {fileID: 585304889}
-  halfDice: {fileID: 0}
-  playerDice: {fileID: 0}
+  my_half_dice_con: {fileID: 0}
+  id: 0
 --- !u!1001 &1987288884
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2405,11 +2446,45 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4722760714961176530, guid: d0cd8636c16a4374ea8756a9258eb49a, type: 3}
   m_PrefabInstance: {fileID: 1987288884}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1987288888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987288886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daac2f371c5f61a4da9361cc2e90f376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  my_half_dice_con: {fileID: 2012430190}
+  id: 2
 --- !u!4 &2012430187 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5cd0d0a35d9e6404797c77e3a514f818, type: 3}
   m_PrefabInstance: {fileID: 998755807}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2012430190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 124277001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06a6b9ab13e76c1449d2d66d5f5125e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 1352266716}
+  smoothing: 2.5
+  weightedZones:
+  - {fileID: 5717344987189504708}
+  - {fileID: 1380845727}
+  - {fileID: 1987288886}
+  - {fileID: 1652614236}
+  - {fileID: 585304889}
 --- !u!1001 &5717344987189504706
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2477,6 +2552,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4722760714961176530, guid: d0cd8636c16a4374ea8756a9258eb49a, type: 3}
   m_PrefabInstance: {fileID: 5717344987189504706}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5717344987189504710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5717344987189504708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daac2f371c5f61a4da9361cc2e90f376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  my_half_dice_con: {fileID: 2012430190}
+  id: 0
 --- !u!1001 &8641822047725012911
 PrefabInstance:
   m_ObjectHideFlags: 0

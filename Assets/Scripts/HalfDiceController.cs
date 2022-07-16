@@ -16,6 +16,7 @@ public class HalfDiceController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        weightedZones[(int)Random.Range(0, 4)].SetActive(true);
         my_trans = GetComponent<Transform>();
     }
 
