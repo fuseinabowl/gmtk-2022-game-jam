@@ -6,6 +6,13 @@ public class WeightedZoneController : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] zones;
+    [SerializeField]
+    private GameObject halfDice;
+    [SerializeField]
+    private GameObject playerDice;
+
+    [SerializeField]
+    private 
     // Start is called before the first frame update
     void Start()
     {

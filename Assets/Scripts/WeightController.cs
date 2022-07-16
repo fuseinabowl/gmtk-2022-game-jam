@@ -31,6 +31,8 @@ public class WeightController : MonoBehaviour
     [SerializeField]
     private ConsumableMovements my_con_movements;
 
+    private bool weighingDown = false;
+
 
 
     // Start is called before the first frame update
@@ -79,6 +81,14 @@ public class WeightController : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "GoalZone"){
             Debug.Log("Reached a zone!");
+            weighingDown = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        if (other.tag == "GoalZone"){
+            Debug.Log("Reached a zone!");
+            weighingDown = false;
         }
     }
 
