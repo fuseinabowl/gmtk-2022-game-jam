@@ -2390,6 +2390,8 @@ MonoBehaviour:
   - {fileID: 1987288886}
   - {fileID: 1652614236}
   - {fileID: 585304889}
+  halfDice: {fileID: 0}
+  playerDice: {fileID: 0}
 --- !u!1001 &1987288884
 PrefabInstance:
   m_ObjectHideFlags: 0
