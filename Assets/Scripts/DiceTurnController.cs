@@ -55,6 +55,16 @@ public class DiceTurnController : MonoBehaviour
     private float invalidDiceRethrowRandomOffset = 1f;
     [SerializeField]
     private float invalidDiceRethrowDuration = 0.5f;
+    [SerializeField]
+    private int invalidNumberOfFlashes = 3;
+    [SerializeField]
+    private Color invalidFlashBrightColor = Color.white;
+    [SerializeField]
+    private Color invalidFlashDarkColor = Color.white;
+    [SerializeField]
+    private float invalidFlashToBrightDuration = 0.05f;
+    [SerializeField]
+    private float invalidFlashToDarkDuration = 0.10f;
 
     [SerializeField]
     private Vector3 arrangingTopLeftPosition = Vector3.zero;
@@ -82,6 +92,10 @@ public class DiceTurnController : MonoBehaviour
     private Vector3 consumedDieOffset = Vector3.down;
     [SerializeField]
     private float cosumedDieAnimationDuration = 0.2f;
+    [SerializeField]
+    private float consumedDieGlowAnimationDuration = 0.2f;
+    [SerializeField]
+    private Color consumedDieGlowColor = Color.black;
 
     [SerializeField]
     private UIDocument gameUi = null;
@@ -432,17 +446,6 @@ public class DiceTurnController : MonoBehaviour
         return Enumerable.Range(0, dice.Count).Where(dieIndex => dice[dieIndex].faceDetector.IsJacked());
     }
 
-    [SerializeField]
-    private int invalidNumberOfFlashes = 3;
-    [SerializeField]
-    private Color invalidFlashBrightColor = Color.white;
-    [SerializeField]
-    private Color invalidFlashDarkColor = Color.white;
-    [SerializeField]
-    private float invalidFlashToBrightDuration = 0.05f;
-    [SerializeField]
-    private float invalidFlashToDarkDuration = 0.10f;
-
     private IEnumerator FlashInvalidDice(List<int> invalidDieIndices)
     {
         for (var flashLoopIndex = 0; flashLoopIndex < invalidNumberOfFlashes; ++flashLoopIndex)
@@ -607,6 +610,7 @@ public class DiceTurnController : MonoBehaviour
         consumingDieAnimators.Add(
             StartCoroutine(AnimateDieConsumption(dieIndex))
         );
+        ChangeDieColor(dieIndex, consumedDieGlowColor, consumedDieGlowAnimationDuration);
     }
 
     private IEnumerator AnimateDieConsumption(int dieIndex)

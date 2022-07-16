@@ -121,6 +121,11 @@ MonoBehaviour:
   invalidDiceRethrowBaseOffset: {x: 0, y: 0, z: -4}
   invalidDiceRethrowRandomOffset: 1
   invalidDiceRethrowDuration: 0.25
+  invalidNumberOfFlashes: 3
+  invalidFlashBrightColor: {r: 1, g: 0, b: 0, a: 1}
+  invalidFlashDarkColor: {r: 0, g: 0, b: 0, a: 1}
+  invalidFlashToBrightDuration: 0.05
+  invalidFlashToDarkDuration: 0.1
   arrangingTopLeftPosition: {x: 2, y: 1, z: 6}
   arrangingHeight: 12
   arrangingHorizontalSpacing: 1.5
@@ -141,13 +146,10 @@ MonoBehaviour:
   outputConsumableMovements: {fileID: 7549948855223118686}
   consumedDieOffset: {x: 0, y: -1, z: 0}
   cosumedDieAnimationDuration: 0.2
+  consumedDieGlowAnimationDuration: 0.2
+  consumedDieGlowColor: {r: 0, g: 0, b: 0, a: 1}
   gameUi: {fileID: 0}
   storyPopUpController: {fileID: 0}
-  invalidNumberOfFlashes: 3
-  invalidFlashBrightColor: {r: 1, g: 0, b: 0, a: 1}
-  invalidFlashDarkColor: {r: 0, g: 0, b: 0, a: 1}
-  invalidFlashToBrightDuration: 0.05
-  invalidFlashToDarkDuration: 0.1
 --- !u!114 &7549948855223118686
 MonoBehaviour:
   m_ObjectHideFlags: 0
