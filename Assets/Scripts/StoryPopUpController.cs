@@ -85,6 +85,7 @@ Why"
         GetContinueButton().clicked += () =>
         {
            HidePopUp();
+           textToType = "";
         };
     }
 
