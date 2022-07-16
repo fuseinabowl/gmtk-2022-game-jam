@@ -59,7 +59,6 @@ public class HalfDiceController : MonoBehaviour
                 target = 180;
                 weightedZones[id].SetActive(false);
                 weightedZones[newZone].SetActive(true);
-                goa
                 break;
             case 1:
                 target = 270;
