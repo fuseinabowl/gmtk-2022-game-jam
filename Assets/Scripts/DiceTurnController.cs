@@ -28,6 +28,8 @@ public class DiceTurnController : MonoBehaviour
     [SerializeField]
     private AnimationCurve grabScrunchOverTime = AnimationCurve.EaseInOut(0f, 1f, 0.1f, 0.8f);
     [SerializeField]
+    private AnimationCurve grabResponseOverTime = AnimationCurve.EaseInOut(0f, 0f, 0.1f, 1f);
+    [SerializeField]
     private Vector2 grabMinBounds = Vector2.zero;
     [SerializeField]
     private Vector2 grabMaxBounds = Vector2.zero;
@@ -197,6 +199,8 @@ public class DiceTurnController : MonoBehaviour
     {
         var rawGrabPoint = GetMouseLocationOnGrabPlane();
         var grabPointInsideBounds = ClampGrabPointInsideBounds(rawGrabPoint);
+        var grabResponseMultiplier = grabResponseOverTime.Evaluate(grabDuration);
+        var diceBundleCenter = Vector3.Lerp(collectDiceLocation, grabPointInsideBounds, grabResponseMultiplier);
 
         var scrunchMultiplier = grabScrunchOverTime.Evaluate(grabDuration);
 
@@ -205,9 +209,7 @@ public class DiceTurnController : MonoBehaviour
             var die = dice[dieIndex];
             var scrunchOffset = collectDiceOffsets[dieIndex];
 
-            var position = grabPointInsideBounds + scrunchOffset * scrunchMultiplier;
-
-            die.gameObject.transform.position = position;
+            die.gameObject.transform.position = diceBundleCenter + scrunchOffset * scrunchMultiplier;
         }
     }
 
