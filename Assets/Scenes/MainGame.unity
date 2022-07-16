@@ -2353,7 +2353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef54c31c9a0575449bfbf21a848d0383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowheadSize: 0
+  arrowheadSize: 0.2
   arrow: {fileID: 1202140421}
   preFlickLinearSpeedMultiplier: 0.1
   speed: 10
@@ -2362,7 +2362,7 @@ MonoBehaviour:
   gravity: 30
   my_die_turn_con: {fileID: 1389162637}
   my_con_movements: {fileID: 1389162636}
-  Player: {fileID: 0}
+  Player: {fileID: 1352266716}
 --- !u!65 &2012430194
 BoxCollider:
   m_ObjectHideFlags: 0
