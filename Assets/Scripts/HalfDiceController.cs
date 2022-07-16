@@ -15,24 +15,27 @@ public class HalfDiceController : MonoBehaviour
     private GameObject[] weightedZones;
     [SerializeField]
     private Animator[] goalIndicators;
-    
+
     // Start is called before the first frame update
     void Start()
     {
-        weightedZones[(int)Random.Range(0, 4)].SetActive(true);
+        
+        int startZone = (int)Random.Range(0, 4);
+        weightedZones[startZone].SetActive(true);
+        goalIndicators[startZone].SetBool("ShouldBeOn", true);
         my_trans = GetComponent<Transform>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        
+
         if (spinning){
             Quaternion targetRotation = Quaternion.Euler(0, target, 270);
             my_trans.rotation = Quaternion.RotateTowards(my_trans.rotation, targetRotation, Time.deltaTime * smoothing);
-        }   
-        
-        
+        }
+
+
     }
 
     //rotation references per zone
@@ -53,35 +56,30 @@ public class HalfDiceController : MonoBehaviour
                 newZone = 0;
             }
         }
-        
+
         switch(id){
             case 0:
                 target = 180;
-                weightedZones[id].SetActive(false);
-                weightedZones[newZone].SetActive(true);
                 break;
             case 1:
                 target = 270;
-                weightedZones[id].SetActive(false);
-                weightedZones[newZone].SetActive(true);
                 break;
             case 2:
                 target = 270;
-                weightedZones[id].SetActive(false);
-                weightedZones[newZone].SetActive(true);
                 break;
             case 3:
                 target = 0;
-                weightedZones[id].SetActive(false);
-                weightedZones[newZone].SetActive(true);
                 break;
             case 4:
                 target = 90;
-                weightedZones[id].SetActive(false);
-                weightedZones[newZone].SetActive(true);
                 break;
 
         }
+
+        weightedZones[id].SetActive(false);
+        goalIndicators[id].SetBool("ShouldBeOn", false);
+        weightedZones[newZone].SetActive(true);
+        goalIndicators[newZone].SetBool("ShouldBeOn", true);
 
     }
 
