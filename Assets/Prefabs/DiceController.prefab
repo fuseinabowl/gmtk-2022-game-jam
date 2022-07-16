@@ -121,7 +121,7 @@ MonoBehaviour:
   invalidDiceRethrowDuration: 0.25
   arrangingTopLeftPosition: {x: 2, y: 0, z: 6}
   arrangingHeight: 12
-  arrangingHorizontalSpacing: 2
+  arrangingHorizontalSpacing: 1.5
   arrangingDuration: 0.25
   arrangingDiceRotations:
   - forward: {x: 0, y: 0, z: 1}
