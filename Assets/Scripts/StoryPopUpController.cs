@@ -59,7 +59,7 @@ public class StoryPopUpController : MonoBehaviour
             typingText = charactersToType < charactersInCurrentString;
         }
 
-        if (popUpOpacity == 1.0f)
+        /*if (popUpOpacity == 1.0f)
         {
             HidePopUp();
         }
@@ -67,7 +67,7 @@ public class StoryPopUpController : MonoBehaviour
         {
            ShowPopUp();
            SetTextToType("Listen here you little shit, I am the devil and you will do what I say now get in the goddamn box");
-        }
+        }*/
     }
 
     void ShowPopUp()
