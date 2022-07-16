@@ -63,3 +63,4 @@ crashlytics-build.properties
 /[Cc]odeCoverage/
 /[Aa]rtifacts/
 
+*.blend1
