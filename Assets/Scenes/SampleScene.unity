@@ -1437,6 +1437,7 @@ MonoBehaviour:
   arrow: {fileID: 1202140421}
   speed: 10
   slowdownSpeed: 0.3
+  gravity: 30
   my_die_turn_con: {fileID: 1389162637}
   my_con_movements: {fileID: 1389162636}
 --- !u!54 &1352266718
@@ -1453,7 +1454,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 4
+  m_Constraints: 100
   m_CollisionDetection: 1
 --- !u!65 &1352266719
 BoxCollider:
@@ -1462,7 +1463,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1352266716}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: a9bf5e807996a634188b98bcd31c4eaa, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2

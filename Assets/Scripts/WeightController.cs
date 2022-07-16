@@ -26,6 +26,9 @@ public class WeightController : MonoBehaviour
     private bool stopped = false;
 
     [SerializeField]
+    private float gravity = 9.8f;
+
+    [SerializeField]
     private DiceTurnController my_die_turn_con;
 
     [SerializeField]
@@ -48,7 +51,7 @@ public class WeightController : MonoBehaviour
 
     void FixedUpdate() {
         if (!stopped){
-            my_rigid.AddForce(new Vector3(0.0f, 0.0f, -9.8f), ForceMode.Acceleration);
+            my_rigid.AddForce(new Vector3(0.0f, 0.0f, -gravity), ForceMode.Acceleration);
         }
         
     }
