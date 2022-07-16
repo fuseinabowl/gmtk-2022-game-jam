@@ -16,10 +16,20 @@ public class WeightController : MonoBehaviour
     
     [SerializeField][Range(1, 50)]
     private float speed;
+    private int prevAngle;
+
+    private float stopTimerMax = 1.0f;
+    private float curStopTimer = 0.0f;
     
     [SerializeField] [Range(0.1f, 1.0f)]
     private float slowdownSpeed;
     private bool stopped = false;
+
+    [SerializeField]
+    private DiceTurnController my_die_turn_con;
+
+    [SerializeField]
+    private ConsumableMovements my_con_movements;
 
 
 
@@ -28,6 +38,7 @@ public class WeightController : MonoBehaviour
     {
         my_rigid = GetComponent<Rigidbody>();
         my_trans = GetComponent<Transform>();
+
         arrowLine = arrow.GetComponentInChildren<LineRenderer>();
         mouseArea = new Vector3(); 
     }
@@ -43,16 +54,36 @@ public class WeightController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(stopped){
+            curStopTimer -= Time.deltaTime;
+        }
+        
+        if (curStopTimer <= 0){
+            stopped = false;
+            curStopTimer = stopTimerMax;
+        }
         if(Input.GetKeyDown("space")){
-            Debug.Log("stop action used");
-            my_rigid.velocity = new Vector3(0.0f, 0.0f, 0.0f);
-            stopped = true;
+            var myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Stop);
+            if (myMovements > 0){
+                my_rigid.velocity = new Vector3(0.0f, 0.0f, 0.0f);
+                stopped = true;
+                my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
+                Debug.Log("stop action used");
+            }else{
+                Debug.Log("No Action to use!");
+            }
+            
         }
     }
 
-
+    private void OnTriggerEnter(Collider other) {
+        if (other.tag == "GoalZone"){
+            Debug.Log("Reached a zone!");
+        }
+    }
 
     private void OnMouseDown() {
+        var myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Up);
        //my_rigid.AddForce(new Vector3(10.0f, 0.0f, 10.0f), ForceMode.Impulse);
         mouseArea = Camera.main.ScreenToWorldPoint(
             new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane)
@@ -68,6 +99,7 @@ public class WeightController : MonoBehaviour
         DrawArrow();
         //Debug.Log(startPosition.x);
         //Debug.Log(startPosition.y);
+        
     }
 
     private void DrawArrow(){
@@ -87,11 +119,9 @@ public class WeightController : MonoBehaviour
             new Keyframe (1 - percentSize, 1f),
             new Keyframe (1 - percentSize, 1f),
             new Keyframe (1, 0f)
-        );
-
-        Debug.Log("Angle: " + (int) Vector3.SignedAngle((mouseArea - startPosition), Vector3.right, Vector3.up));
-       
-
+        );      
+        Debug.Log((int) Vector3.SignedAngle((mouseArea - startPosition), Vector3.right, Vector3.up));
+        prevAngle = (int) Vector3.SignedAngle((mouseArea - startPosition), Vector3.right, Vector3.up);
     }
 
     private void OnMouseUp() {
@@ -101,26 +131,45 @@ public class WeightController : MonoBehaviour
         Vector3 magnitude = mouseArea - startPosition;
         int newAngle = (int) Vector3.SignedAngle((mouseArea - startPosition), Vector3.right, Vector3.up);
         
-        if (newAngle >= 0){
-            if(newAngle >= 144){
-                Debug.Log("Leftmost Action used!");
-                my_rigid.AddForce(new Vector3(magnitude.x*speed, 0.0f, magnitude.z*speed), ForceMode.Impulse);
+        if (newAngle <= -165 || newAngle >= -15){
+            if(newAngle >= 144 || newAngle <= -165){
+                int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Left);
+                if( myMovements > 0){
+                    my_rigid.AddForce(new Vector3(magnitude.x*speed, 0.0f, magnitude.z*speed), ForceMode.Impulse);
+                    Debug.Log("Leftmost Action used!");
+                    my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Left);
+                }
             }else if(newAngle >= 108){
-                Debug.Log("Up-Left Action Used!");
-                my_rigid.AddForce(new Vector3(magnitude.x*speed, 0.0f, magnitude.z*speed), ForceMode.Impulse);
+                int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.LeftUp);
+                if( myMovements > 0){
+                    my_rigid.AddForce(new Vector3(magnitude.x*speed, 0.0f, magnitude.z*speed), ForceMode.Impulse);
+                    Debug.Log("LeftUp Action used!");
+                    my_con_movements.ConsumeMovement(ConsumableMovements.Movement.LeftUp);
+                }
             }else if(newAngle >= 72){
-                Debug.Log("Up Action Used!");
-                my_rigid.AddForce(new Vector3(magnitude.x*speed, 0.0f, magnitude.z*speed), ForceMode.Impulse);
+                int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Up);
+                if( myMovements > 0){
+                    my_rigid.AddForce(new Vector3(magnitude.x*speed, 0.0f, magnitude.z*speed), ForceMode.Impulse);
+                    Debug.Log("LeftUp Action used!");
+                    my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Up);
+                }
             }else if(newAngle >= 36){
-                Debug.Log("Up-right Action Used!");
-                my_rigid.AddForce(new Vector3(magnitude.x*speed, 0.0f, magnitude.z*speed), ForceMode.Impulse);
-            }else if(newAngle >= 0){
-                Debug.Log("Right Action Used!");
-                my_rigid.AddForce(new Vector3(magnitude.x*speed, 0.0f, magnitude.z*speed), ForceMode.Impulse);
+                int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.RightUp);
+                if( myMovements > 0){
+                    my_rigid.AddForce(new Vector3(magnitude.x*speed, 0.0f, magnitude.z*speed), ForceMode.Impulse);
+                    Debug.Log("Right Action used!");
+                    my_con_movements.ConsumeMovement(ConsumableMovements.Movement.RightUp);
+                }
+            }else if(newAngle >= -15){
+                int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Right);
+                if( myMovements > 0){
+                    my_rigid.AddForce(new Vector3(magnitude.x*speed, 0.0f, magnitude.z*speed), ForceMode.Impulse);
+                    Debug.Log("Right Action used!");
+                    my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Right);
+                }
             }
             
         }
-        Debug.Log(newAngle);
         
     }
 }
