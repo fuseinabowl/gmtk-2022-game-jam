@@ -110,11 +110,11 @@ MonoBehaviour:
   throwableBundleClickableRadius: 3
   throwRandomVelocity: 1
   throwRandomAngularVelocity: 1
-  invalidDiceRethrowLeftPosition: {x: -1, y: 0, z: 0}
-  invalidDiceRethrowRightPosition: {x: 1, y: 0, z: 0}
+  invalidDiceRethrowLeftPosition: {x: 2, y: 2, z: -5}
+  invalidDiceRethrowRightPosition: {x: 10, y: 2, z: -5}
   invalidDiceRethrowBaseOffset: {x: 0, y: 0, z: -2}
   invalidDiceRethrowRandomOffset: 1
-  invalidDiceRethrowDuration: 0.5
+  invalidDiceRethrowDuration: 0.25
   arrangingTopLeftPosition: {x: 2, y: 0, z: 6}
   arrangingHeight: 12
   arrangingHorizontalSpacing: 2
