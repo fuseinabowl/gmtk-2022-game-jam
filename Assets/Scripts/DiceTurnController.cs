@@ -177,7 +177,9 @@ public class DiceTurnController : MonoBehaviour
             die.body.isKinematic = false;
         }
 
-        StartCoroutine(ThrowDiceAndWaitForResult());
+        yield return new WaitForFixedUpdate();
+
+        StartCoroutine(WaitForDiceThrowResult());
     }
 
     private bool HasUserClickedOnTheDiceBundleThisFrame()
@@ -243,7 +245,7 @@ public class DiceTurnController : MonoBehaviour
         return new Vector3(clampedX, rawGrabPoint.y, clampedZ);
     }
 
-    private IEnumerator ThrowDiceAndWaitForResult()
+    private IEnumerator WaitForDiceThrowResult()
     {
         var jackedDieIndices = new List<int>();
         do
@@ -258,6 +260,8 @@ public class DiceTurnController : MonoBehaviour
             
             yield return RethrowJackedDice(jackedDieIndices);
         } while (jackedDieIndices.Count > 0);
+
+        Debug.Log("All dice are stable");
 
         // TODO
         // StartCoroutine(ReportToWeightGameAndArrangeDiceResults());
