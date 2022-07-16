@@ -104,6 +104,11 @@ public class DiceTurnController : MonoBehaviour
         public Vector3 control0;
         public Vector3 control1;
         public Vector3 endPosition;
+
+        public Quaternion startRotation;
+        public Quaternion controlRotation0;
+        public Quaternion controlRotation1;
+        public Quaternion endRotation;
     }
     private IEnumerator RunBezierPaths(List<DieBezierPath> bezierPaths, float duration)
     {
@@ -120,6 +125,7 @@ public class DiceTurnController : MonoBehaviour
             {
                 var dieTransform = dice[diePath.dieIndex].gameObject.transform;
                 dieTransform.position = BezierLerp(diePath.startPosition, diePath.control0, diePath.control1, diePath.endPosition, timeProportion);
+                dieTransform.rotation = BezierQuaternionLerp(diePath.startRotation, diePath.controlRotation0, diePath.controlRotation1, diePath.endRotation, timeProportion);
             }
         } while (Time.time < endTime);
     }
@@ -136,6 +142,18 @@ public class DiceTurnController : MonoBehaviour
         return Vector3.Lerp(startLerp, endLerp, time);
     }
 
+    private Quaternion BezierQuaternionLerp(Quaternion start, Quaternion control0, Quaternion control1, Quaternion end, float timeUnclamped)
+    {
+        var time = Mathf.Clamp(timeUnclamped, 0f, 1f);
+
+        var mid = Quaternion.Lerp(control0, control1, time);
+
+        var startLerp = Quaternion.Lerp(start, mid, time);
+        var endLerp = Quaternion.Lerp(mid, end, time);
+
+        return Quaternion.Lerp(startLerp, endLerp, time);
+    }
+
     private IEnumerator CollectAllDiceAndPrepareForRoll()
     {
         foreach (var die in dice)
@@ -150,10 +168,16 @@ public class DiceTurnController : MonoBehaviour
                 var scrunchPosition = collectDiceLocation + collectDiceOffsets[dieIndex];
                 return new DieBezierPath{
                     dieIndex = dieIndex,
+
                     startPosition = die.gameObject.transform.position,
                     control0 = die.gameObject.transform.position + collectDiceRiseOffset,
                     control1 = scrunchPosition,
                     endPosition = scrunchPosition,
+
+                    startRotation = die.gameObject.transform.rotation,
+                    controlRotation0 = die.gameObject.transform.rotation,
+                    controlRotation1 = die.gameObject.transform.rotation,
+                    endRotation = die.gameObject.transform.rotation,
                 };
             })
             .ToList();
@@ -311,10 +335,16 @@ public class DiceTurnController : MonoBehaviour
                 var restartThrowOffset = invalidDiceRethrowBaseOffset + UnityEngine.Random.insideUnitSphere * invalidDiceRethrowRandomOffset;
                 return new DieBezierPath{
                     dieIndex = dieIndex,
+
                     startPosition = die.gameObject.transform.position,
                     control0 = die.gameObject.transform.position + collectDiceRiseOffset,
                     control1 = restartPosition + restartThrowOffset,
                     endPosition = restartPosition,
+
+                    startRotation = die.gameObject.transform.rotation,
+                    controlRotation0 = die.gameObject.transform.rotation,
+                    controlRotation1 = die.gameObject.transform.rotation,
+                    endRotation = die.gameObject.transform.rotation,
                 };
             })
             .ToList();
@@ -380,14 +410,24 @@ public class DiceTurnController : MonoBehaviour
                 var faceVerticalPosition = Vector3.Lerp(topPosition, bottomPosition, (float)face / 5f);
                 var faceHorizontalOffset = Vector3.right * seenFaceInstances[face] * arrangingHorizontalSpacing;
                 var targetPosition = faceVerticalPosition + faceHorizontalOffset;
+
+                var targetLookAt = arrangingDiceRotations[face];
+                var targetRotation = Quaternion.LookRotation(targetLookAt.forward, targetLookAt.up);
+
                 seenFaceInstances[face] = seenFaceInstances[face] + 1;
 
                 return new DieBezierPath{
                     dieIndex = dieIndex,
+
                     startPosition = die.gameObject.transform.position,
                     control0 = die.gameObject.transform.position,
                     control1 = targetPosition,
                     endPosition = targetPosition,
+
+                    startRotation = die.gameObject.transform.rotation,
+                    controlRotation0 = die.gameObject.transform.rotation,
+                    controlRotation1 = targetRotation,
+                    endRotation = targetRotation,
                 };
             })
             .ToList();
