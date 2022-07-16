@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/StyleSheet.uss?fileID=7433441132597879392&amp;guid=64add83697edb5a4eba968a1bb65d3a8&amp;type=3#StyleSheet" />
     <ui:VisualElement name="MainPanel" picking-mode="Ignore" style="flex-grow: 1; justify-content: flex-end; align-items: flex-end;">
-        <ui:Button text="Start Next Turn" display-tooltip-when-elided="true" name="NextTurn" />
+        <ui:Button text="Reroll Dice" display-tooltip-when-elided="true" name="NextTurn" style="-unity-font: url(&apos;project://database/Assets/MorrisRoman-Black.ttf?fileID=12800000&amp;guid=ff1c4167532a3d74f9a404dbed304214&amp;type=3#MorrisRoman-Black&apos;); background-image: url(&apos;project://database/Assets/Art/reroll%20button.png?fileID=2800000&amp;guid=2708fd217b175b1439272b7c8b87b107&amp;type=3#reroll button&apos;); -unity-slice-left: 0; -unity-slice-top: 0; -unity-slice-right: 0; -unity-slice-bottom: 0; font-size: 20px; color: rgb(82, 14, 14); -unity-font-definition: none; -unity-font-style: normal; padding-left: 15px; padding-right: 15px; padding-top: 3px; padding-bottom: 2px; width: 150px; height: 45px;" />
     </ui:VisualElement>
 </ui:UXML>
