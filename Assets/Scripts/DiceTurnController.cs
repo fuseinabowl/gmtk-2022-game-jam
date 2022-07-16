@@ -281,8 +281,6 @@ public class DiceTurnController : MonoBehaviour
             die.body.isKinematic = true;
         }
 
-        ReportResultsToWeightGame();
-
         StartCoroutine(ArrangeDiceResults());
     }
 
@@ -336,10 +334,17 @@ public class DiceTurnController : MonoBehaviour
         yield return new WaitForFixedUpdate();
     }
 
-    private void ReportResultsToWeightGame()
+    private void ReportResultsToWeightGame(List<int> seenFaceInstances)
     {
         // TODO
-        Debug.Log("All dice are stable");
+        Debug.Log("Seen faces:\n"+
+            $"up: {seenFaceInstances[0]}\n"+
+            $"left: {seenFaceInstances[1]}\n"+
+            $"left-up: {seenFaceInstances[2]}\n"+
+            $"right-up: {seenFaceInstances[3]}\n"+
+            $"right: {seenFaceInstances[4]}\n"+
+            $"stop: {seenFaceInstances[5]}\n"
+            );
     }
 
     [SerializeField]
@@ -388,5 +393,7 @@ public class DiceTurnController : MonoBehaviour
             .ToList();
 
         yield return RunBezierPaths(beziers, arrangingDuration);
+
+        ReportResultsToWeightGame(seenFaceInstances);
     }
 }
