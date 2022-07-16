@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 6719498461050603395}
   - component: {fileID: 7975862897198585995}
   - component: {fileID: 4687640635107063324}
+  - component: {fileID: 6892594404492603995}
   m_Layer: 0
   m_Name: Die
   m_TagString: Untagged
@@ -335,3 +336,17 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6892594404492603995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7387645378793593163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e369bbd906c9f9b4db43525372d60b36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetRenderer: {fileID: 7387645378793593173}
+  glowColor: {r: 0.27450982, g: 0, b: 0, a: 1}
