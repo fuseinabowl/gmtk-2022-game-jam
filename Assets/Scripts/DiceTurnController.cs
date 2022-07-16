@@ -153,8 +153,6 @@ public class DiceTurnController : MonoBehaviour
             yield return 0;
         }
 
-        Debug.Log("Picking up dice");
-
         var grabTime = Time.time;
         while (IsUserCurrentlyHoldingMouseDown())
         {
@@ -162,8 +160,6 @@ public class DiceTurnController : MonoBehaviour
             MoveDiceBundleToCursor(grabDuration);
             yield return 0;
         }
-
-        Debug.Log("Throwing dice");
 
         StartCoroutine(ThrowDiceAndWaitForResult());
     }
