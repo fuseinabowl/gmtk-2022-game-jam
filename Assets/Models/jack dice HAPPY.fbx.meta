@@ -7,8 +7,28 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: -6478536213147159724, guid: d0fe1f467ef7bb54fa532eafaa19fdbd, type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dark eyes
+    second: {fileID: 3669576903413287440, guid: d0fe1f467ef7bb54fa532eafaa19fdbd, type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pupil
+    second: {fileID: 9137765923410779837, guid: d0fe1f467ef7bb54fa532eafaa19fdbd, type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: red
     second: {fileID: 2100000, guid: 568e28aa56a14384f8d7516ca1a07743, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: teeth
+    second: {fileID: -6083782345664591421, guid: d0fe1f467ef7bb54fa532eafaa19fdbd, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
