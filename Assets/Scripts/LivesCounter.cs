@@ -5,7 +5,9 @@ using UnityEngine;
 public class LivesCounter : MonoBehaviour
 {
     
+    [SerializeField]
     private int lifeCounterMax = 3;
+
     private int curLives;
     [SerializeField]
     private GameObject[] lifeObjects;
