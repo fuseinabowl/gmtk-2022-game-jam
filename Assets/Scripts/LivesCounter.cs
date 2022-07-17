@@ -20,7 +20,7 @@ public class LivesCounter : MonoBehaviour
         TryHideLifeObject();
 
         // if it returns false, that means GAME OVER
-        return (curLives > 0);
+        return (curLives >= 0);
     }
 
     private void TryHideLifeObject()
