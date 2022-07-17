@@ -147,7 +147,7 @@ public class DiceTurnController : MonoBehaviour
     {
         GetNextTurnButton().clicked += () =>
         {
-            if (livesCounter.decrementLife())
+            if (!livesCounter.decrementLife())
             {
                 Lose();
             }
