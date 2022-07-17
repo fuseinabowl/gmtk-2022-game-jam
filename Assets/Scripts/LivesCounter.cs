@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class LivesCounter : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
+
+    private GameObject[] livesAr;
+    [SerializeField]
+    private int lifeCounterMax = 3;
+    [SerializeField]
+    private GameObject[] lifeObjects;
+    private void Start() {
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    // Start is called before the first frame update
+    
+
+
 }

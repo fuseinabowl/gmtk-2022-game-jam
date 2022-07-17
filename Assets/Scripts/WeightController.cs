@@ -50,7 +50,7 @@ public class WeightController : MonoBehaviour
     private bool chained = false;
     [SerializeField][Range(0.0f, 1.0f)]
     private float chainWidth;
-    private float chainTimerMax = 1.0f;
+    private float chainTimerMax = 1.66f;
     private float curChainTimer;
     [SerializeField]
     private LineRenderer chainLine;
@@ -83,7 +83,7 @@ public class WeightController : MonoBehaviour
     void FixedUpdate() {
         if(chained){
            
-           chainLine.enabled = true;
+            chainLine.enabled = true;
             DrawChain(closestPointsPair);
         }
         if (!stopped){

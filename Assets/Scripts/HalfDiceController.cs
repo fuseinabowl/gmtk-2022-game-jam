@@ -25,8 +25,8 @@ public class HalfDiceController : MonoBehaviour
     void Start()
     {
 
-        weightedZones[4].SetActive(true);
-        goalIndicators[4].SetBool("ShouldBeOn", true);
+        weightedZones[3].SetActive(true);
+        goalIndicators[3].SetBool("ShouldBeOn", true);
         my_trans = GetComponent<Transform>();
     }
 
@@ -97,6 +97,8 @@ public class HalfDiceController : MonoBehaviour
                 goalIndicators[id].SetBool("ShouldBeOn", false);
                 weightedZones[newZone].SetActive(true);
                 goalIndicators[newZone].SetBool("ShouldBeOn", true);
+                break;
+            default:
                 break;
 
         }
