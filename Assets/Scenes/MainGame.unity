@@ -1424,6 +1424,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: afcace022dd0bf54f84ed8370629279f, type: 3}
   m_PrefabInstance: {fileID: 302861521}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1166933540 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4101462547440085355, guid: f086a74c6977d6d43bc5fb7cd6b409c8, type: 3}
+  m_PrefabInstance: {fileID: 267988815}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1178341852
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2177,10 +2182,18 @@ PrefabInstance:
       propertyPath: targetRenderer
       value: 
       objectReference: {fileID: 768210329}
+    - target: {fileID: 3236804685001667365, guid: 6464dd0808c34bc4785f1763237b8149, type: 3}
+      propertyPath: targetCamera
+      value: 
+      objectReference: {fileID: 963194227}
     - target: {fileID: 6302749762522251089, guid: 6464dd0808c34bc4785f1763237b8149, type: 3}
       propertyPath: jack
       value: 
       objectReference: {fileID: 23296346}
+    - target: {fileID: 6560804099754635231, guid: 6464dd0808c34bc4785f1763237b8149, type: 3}
+      propertyPath: jackTransform
+      value: 
+      objectReference: {fileID: 1166933540}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6464dd0808c34bc4785f1763237b8149, type: 3}
 --- !u!1001 &7786603849211876270
