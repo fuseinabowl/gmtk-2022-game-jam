@@ -607,6 +607,10 @@ PrefabInstance:
       propertyPath: scorePerDie
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4567189924533600539, guid: f086a74c6977d6d43bc5fb7cd6b409c8, type: 3}
+      propertyPath: diceTurnController
+      value: 
+      objectReference: {fileID: 1389162637}
     - target: {fileID: 4567189925114197716, guid: f086a74c6977d6d43bc5fb7cd6b409c8, type: 3}
       propertyPath: my_life_ctr
       value: 

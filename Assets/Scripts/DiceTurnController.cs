@@ -648,4 +648,10 @@ public class DiceTurnController : MonoBehaviour
         
         yield return RunBezierPaths(bezierPaths, cosumedDieAnimationDuration);
     }
+
+    public void OnLevelWon()
+    {
+        outputConsumableMovements.StopSharingMovements();
+        StartCoroutine(CollectAllDiceAndPrepareForRoll());
+    }
 }

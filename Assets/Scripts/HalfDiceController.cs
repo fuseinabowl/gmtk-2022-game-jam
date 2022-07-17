@@ -18,6 +18,8 @@ public class HalfDiceController : MonoBehaviour
     [SerializeField]
     private ConsumableMovements my_con_mov;
     [SerializeField]
+    private DiceTurnController diceTurnController = null;
+    [SerializeField]
     private int scorePerDie;
     private int totalScore = 0;
 
@@ -50,6 +52,7 @@ public class HalfDiceController : MonoBehaviour
         Player.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
         spinning = true;
         totalScore += my_con_mov.getNumDiceRemaining() * scorePerDie;
+        diceTurnController.OnLevelWon();
         Debug.Log("Score So Far:" + totalScore);
 
         int newZone = Random.Range(0, 4);
