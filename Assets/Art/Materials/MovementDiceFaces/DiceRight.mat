@@ -45,7 +45,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FaceTexture:
-        m_Texture: {fileID: 2800000, guid: 9b81b53f08188694380d80e698eab2a5, type: 3}
+        m_Texture: {fileID: 2800000, guid: 49fdb7776dbf1c941bc6492bf93b352c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _GlowTexture:
