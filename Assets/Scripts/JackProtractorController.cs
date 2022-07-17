@@ -23,8 +23,11 @@ public class JackProtractorController : MonoBehaviour
     [SerializeField]
     private ConsumableMovements consumeableMovements = null;
 
+    [SerializeField]
     private Color greenColor = new Color( 0, 255, 0, 255);
-    private Color orangeColor = new Color( 255, 104, 0, 255);
+    [SerializeField]
+    private Color orangeColor = new Color( 255, 204, 0, 255);
+    [SerializeField]
     private Color redColor = new Color( 255, 0, 0, 255);
 
     // Start is called before the first frame update
@@ -61,5 +64,41 @@ public class JackProtractorController : MonoBehaviour
 
         wildMovesText.text = wildMovements.ToString();
         wildMovesText.color = hasWildMoves ? greenColor : redColor;
+    }
+
+    public void SetMovesToBeUsed( bool moveSet, ConsumableMovements.Movement movement, bool usingWild )
+    {
+        leftMovesText.fontStyle = FontStyles.Normal;
+        upLeftMovesText.fontStyle = FontStyles.Normal;
+        upMovesText.fontStyle = FontStyles.Normal;
+        upRightMovesText.fontStyle = FontStyles.Normal;
+        rightMovesText.fontStyle = FontStyles.Normal;
+        wildMovesText.fontStyle = FontStyles.Normal;
+
+        if (moveSet)
+        {
+            switch (movement)
+            {
+                case ConsumableMovements.Movement.Left:
+                    leftMovesText.fontStyle = FontStyles.Bold;
+                    break;
+                case ConsumableMovements.Movement.LeftUp:
+                    upLeftMovesText.fontStyle = FontStyles.Bold;
+                    break;
+                case ConsumableMovements.Movement.Up:
+                    upMovesText.fontStyle = FontStyles.Bold;
+                    break;
+                case ConsumableMovements.Movement.RightUp:
+                    upRightMovesText.fontStyle = FontStyles.Bold;
+                    break;
+                case ConsumableMovements.Movement.Right:
+                    rightMovesText.fontStyle = FontStyles.Bold;
+                    break;
+            }
+            if (usingWild)
+            {
+                wildMovesText.fontStyle = FontStyles.Bold;
+            }
+        }
     }
 }

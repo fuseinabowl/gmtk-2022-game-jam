@@ -397,6 +397,10 @@ PrefabInstance:
       propertyPath: jackProtactorTransform
       value: 
       objectReference: {fileID: 701198555}
+    - target: {fileID: 4567189924533600516, guid: f086a74c6977d6d43bc5fb7cd6b409c8, type: 3}
+      propertyPath: jackProtactorController
+      value: 
+      objectReference: {fileID: 701198554}
     - target: {fileID: 4567189924533600539, guid: f086a74c6977d6d43bc5fb7cd6b409c8, type: 3}
       propertyPath: Player
       value: 
@@ -918,6 +922,17 @@ Transform:
   m_Father: {fileID: 267988820}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &701198554 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1014181677854362137, guid: 17c35a9635bc6e44b8ba17c05ed1f62b, type: 3}
+  m_PrefabInstance: {fileID: 1959154113}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3065c498818d114ba85062fe92ad410, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &701198555 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2953060590403621414, guid: 17c35a9635bc6e44b8ba17c05ed1f62b, type: 3}
