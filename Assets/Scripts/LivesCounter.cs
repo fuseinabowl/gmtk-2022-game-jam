@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class LivesCounter : MonoBehaviour
 {
-
-    private GameObject[] livesAr;
     
     private int lifeCounterMax = 3;
     private bool safeReroll = false;

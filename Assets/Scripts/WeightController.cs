@@ -66,6 +66,7 @@ public class WeightController : MonoBehaviour
     private (GameObject chainStartObject, Vector3 chainEndPos) closestPointsPair;
     [SerializeField]
     private LivesCounter my_lives_ctr;
+    private bool canLoseALife = false; //tie this to rerolling/rolling dice for moves.
 
 
     // Start is called before the first frame update
@@ -83,12 +84,15 @@ public class WeightController : MonoBehaviour
 
 
     void FixedUpdate() {
-        if(!chained){
-            if(my_rigid.velocity.magnitude < 0.5f){
-                if(my_con_movements.getNumDiceRemaining() <= 0){
-                    //CHECK FOR GAMEOVER HERE
-                    //FORCE A RESET HERE
-                    my_lives_ctr.decrementLife();
+        
+        if(canLoseALife){
+            if(!chained){
+                if(my_rigid.velocity.magnitude < 0.5f){
+                    if(my_con_movements.getNumDiceRemaining() <= 0){
+                        //CHECK FOR GAMEOVER HERE
+                        //FORCE A RESET HERE
+                        my_lives_ctr.decrementLife();
+                    }
                 }
             }
         }
