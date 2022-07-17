@@ -6,15 +6,24 @@ public class LivesCounter : MonoBehaviour
 {
 
     private GameObject[] livesAr;
-    [SerializeField]
+    
     private int lifeCounterMax = 3;
+    private int curLives;
     [SerializeField]
     private GameObject[] lifeObjects;
     private void Start() {
-        
+        curLives = lifeCounterMax;
     }
 
-    // Start is called before the first frame update
+    public bool decrementLife(){
+        curLives -= 1;
+        lifeObjects[curLives].SetActive(false);
+
+        //if it returns false, that means GAME OVER
+        return (curLives > 0);
+        }
+
+    
     
 
 

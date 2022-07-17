@@ -37,8 +37,6 @@ public class HalfDiceController : MonoBehaviour
             Quaternion targetRotation = Quaternion.Euler(0, target, 270);
             my_trans.rotation = Quaternion.RotateTowards(my_trans.rotation, targetRotation, Time.deltaTime * smoothing);
         }
-
-
     }
 
     //rotation references per zone
@@ -52,7 +50,7 @@ public class HalfDiceController : MonoBehaviour
         Player.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
         spinning = true;
         totalScore += my_con_mov.getNumDiceRemaining() * scorePerDie;
-        Debug.Log("Score So Far:"+totalScore);
+        Debug.Log("Score So Far:" + totalScore);
 
         int newZone = Random.Range(0, 4);
         if (newZone == id){
