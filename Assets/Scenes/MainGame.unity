@@ -777,6 +777,11 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!23 &768210329 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2075366049053063590, guid: f086a74c6977d6d43bc5fb7cd6b409c8, type: 3}
+  m_PrefabInstance: {fileID: 267988815}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &781595612
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -893,6 +898,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43c904b589ec87a46a66711c7f548b18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifeCounterMax: 1
   lifeObjects:
   - {fileID: 1099246277}
   - {fileID: 368420530}
@@ -1481,31 +1487,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c06f075c1003d974080ab777bd4af585, type: 3}
---- !u!1 &1942079040 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 367594281425310123, guid: 6464dd0808c34bc4785f1763237b8149, type: 3}
+--- !u!95 &1942079042 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1942079042, guid: 6464dd0808c34bc4785f1763237b8149, type: 3}
   m_PrefabInstance: {fileID: 3283659413475333527}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &1942079042
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1942079040}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b8d8e395827a27c4b8699244db5a6686, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2023118789
 GameObject:
   m_ObjectHideFlags: 0
@@ -1644,18 +1630,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1827051229, guid: 6464dd0808c34bc4785f1763237b8149, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 4.62
-      objectReference: {fileID: 0}
-    - target: {fileID: 1827051230, guid: 6464dd0808c34bc4785f1763237b8149, type: 3}
-      propertyPath: jack
-      value: 
-      objectReference: {fileID: 23296346}
-    - target: {fileID: 1827051230, guid: 6464dd0808c34bc4785f1763237b8149, type: 3}
-      propertyPath: isAttracting
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 367594281425310123, guid: 6464dd0808c34bc4785f1763237b8149, type: 3}
       propertyPath: m_Name
       value: EndOfGameAnimator
@@ -1704,6 +1678,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 831869819716855160, guid: 6464dd0808c34bc4785f1763237b8149, type: 3}
+      propertyPath: targetRenderer
+      value: 
+      objectReference: {fileID: 768210329}
+    - target: {fileID: 6302749762522251089, guid: 6464dd0808c34bc4785f1763237b8149, type: 3}
+      propertyPath: jack
+      value: 
+      objectReference: {fileID: 23296346}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6464dd0808c34bc4785f1763237b8149, type: 3}
 --- !u!1001 &7786603849211876270
