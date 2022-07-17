@@ -141,7 +141,7 @@ MonoBehaviour:
     up: {x: 0, y: 0, z: -1}
   - forward: {x: 0, y: 0, z: -1}
     up: {x: -1, y: 0, z: 0}
-  - forward: {x: 0, y: 0, z: 1}
+  - forward: {x: 0, y: 0, z: -1}
     up: {x: 0, y: -1, z: 0}
   outputConsumableMovements: {fileID: 7549948855223118686}
   consumedDieOffset: {x: 0, y: -1, z: 0}
@@ -150,6 +150,8 @@ MonoBehaviour:
   consumedDieGlowColor: {r: 0, g: 0, b: 0, a: 1}
   gameUi: {fileID: 0}
   storyPopUpController: {fileID: 0}
+  livesCounter: {fileID: 0}
+  endOfGameAnimator: {fileID: 0}
 --- !u!114 &7549948855223118686
 MonoBehaviour:
   m_ObjectHideFlags: 0
