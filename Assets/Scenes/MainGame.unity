@@ -2351,6 +2351,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0fe1f467ef7bb54fa532eafaa19fdbd, type: 3}
+--- !u!23 &1977610869 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -6652725513331149018, guid: d0fe1f467ef7bb54fa532eafaa19fdbd, type: 3}
+  m_PrefabInstance: {fileID: 1977610868}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2023118789
 GameObject:
   m_ObjectHideFlags: 0
@@ -2544,7 +2549,7 @@ PrefabInstance:
     - target: {fileID: 831869819716855160, guid: 6464dd0808c34bc4785f1763237b8149, type: 3}
       propertyPath: targetRenderer
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1977610869}
     - target: {fileID: 3236804685001667365, guid: 6464dd0808c34bc4785f1763237b8149, type: 3}
       propertyPath: targetCamera
       value: 
@@ -2556,7 +2561,7 @@ PrefabInstance:
     - target: {fileID: 6560804099754635231, guid: 6464dd0808c34bc4785f1763237b8149, type: 3}
       propertyPath: jackTransform
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1768587871}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6464dd0808c34bc4785f1763237b8149, type: 3}
 --- !u!1001 &7786603849211876270
