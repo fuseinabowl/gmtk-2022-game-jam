@@ -20,7 +20,7 @@ public class MainMenuController : MonoBehaviour
     {
         GetStartButton().clicked += () =>
         {
-           SceneManager.LoadScene("MainGame");
+           SceneManager.LoadScene("IntroCutscene");
         };
     }
 
