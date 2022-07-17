@@ -12,11 +12,14 @@ public class WeightedZoneController : MonoBehaviour
     private float rotateTimerMax;
     private float curRotateTimer;
     private bool isInZone;
+    [SerializeField]
+    private LivesCounter my_life_ctr;
 
     private void FixedUpdate() {
         if(isInZone){
             curRotateTimer -= Time.deltaTime;
             if (curRotateTimer <= 0){
+                my_life_ctr.canSafelyReroll();
                 my_half_dice_con.spin(id);
             }
         }
