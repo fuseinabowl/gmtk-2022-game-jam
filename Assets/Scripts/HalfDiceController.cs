@@ -28,6 +28,18 @@ public class HalfDiceController : MonoBehaviour
     private int scorePerDie;
     private int totalScore = 0;
 
+    [SerializeField]
+    private string[] responses = new string[]{
+        "A one would be DEVASTATING for you now...", // Rolling a 1
+        "A five would be quite a lucky roll for me...", // Rolling a 5
+        "If only I could roll a five right now...", // Rolling a 5
+        "I couldn't POSSIBLY roll a six...", // Rolling a 6
+        "Rolling a two would be so bad for you..." // Rolling a 2
+    };
+        
+        
+    private int faceId;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,7 +69,7 @@ public class HalfDiceController : MonoBehaviour
     //y = 270 -> weightedZone_1/2
 
     public void spin(int id){
-        //Player.transform.SetParent(my_trans);
+        faceId = id;
         Player.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
         spinning = true;
         totalScore += my_con_mov.getNumDiceRemaining() * scorePerDie;
@@ -118,6 +130,10 @@ public class HalfDiceController : MonoBehaviour
 
     public int getTotalScore(){
         return totalScore;
+    }
+
+    public string getCurResponse(){
+        return responses[faceId];
     }
 
 }
