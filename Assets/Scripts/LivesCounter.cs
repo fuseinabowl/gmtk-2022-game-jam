@@ -21,18 +21,24 @@ public class LivesCounter : MonoBehaviour
     public bool decrementLife(){
         if (!safeReroll){
             curLives -= 1;
-            lifeObjects[curLives].SetActive(false);
+            TryHideLifeObject();
         }else{
             safeReroll = false;
         }
-        
 
-        //if it returns false, that means GAME OVER
+        // if it returns false, that means GAME OVER
         return (curLives > 0);
+    }
+
+    private void TryHideLifeObject()
+    {
+        if (curLives >= 0 && curLives < lifeObjects.Length)
+        {
+            var lifeObject = lifeObjects[curLives];
+            if (lifeObject != null)
+            {
+                lifeObject.SetActive(false);
+            }
         }
-
-    
-    
-
-
+    }
 }

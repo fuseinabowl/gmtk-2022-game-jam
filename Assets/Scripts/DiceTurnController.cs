@@ -102,6 +102,9 @@ public class DiceTurnController : MonoBehaviour
     [SerializeField]
     private StoryPopUpController storyPopUpController = null;
 
+    [SerializeField]
+    private LivesCounter livesCounter = null;
+
     public delegate void OnNewTurn();
     public OnNewTurn onNewTurn = null;
 
@@ -144,10 +147,20 @@ public class DiceTurnController : MonoBehaviour
     {
         GetNextTurnButton().clicked += () =>
         {
+            if (livesCounter.decrementLife())
+            {
+                Lose();
+            }
+
             outputConsumableMovements.StopSharingMovements();
             StartCoroutine(CollectAllDiceAndPrepareForRoll());     
             onNewTurn?.Invoke();
         };
+    }
+
+    private void Lose()
+    {
+        // TODO
     }
 
     private List<Die> CreateDice()

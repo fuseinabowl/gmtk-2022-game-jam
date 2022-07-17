@@ -271,6 +271,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 231774047, guid: f086a74c6977d6d43bc5fb7cd6b409c8, type: 3}
+      propertyPath: m_RootOrder
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 209448514395941960, guid: f086a74c6977d6d43bc5fb7cd6b409c8, type: 3}
       propertyPath: m_Size.x
       value: 1.258558
@@ -846,6 +850,10 @@ PrefabInstance:
       propertyPath: gameUi
       value: 
       objectReference: {fileID: 941703503}
+    - target: {fileID: -4951615999432625245, guid: 60a95dc43409feb489d6e3772c84d973, type: 3}
+      propertyPath: livesCounter
+      value: 
+      objectReference: {fileID: 890981259}
     - target: {fileID: -4951615999432625245, guid: 60a95dc43409feb489d6e3772c84d973, type: 3}
       propertyPath: playerCamera
       value: 
@@ -2499,7 +2507,7 @@ HingeJoint:
   m_Anchor: {x: 0.43, y: 0, z: -0.56}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.56616145, y: 0.12198239, z: -0.56133336}
+  m_ConnectedAnchor: {x: 0.56616145, y: 0.12198293, z: -0.56133336}
   m_UseSpring: 0
   m_Spring:
     spring: 0
