@@ -31,23 +31,21 @@ public class StoryPopUpController : MonoBehaviour
     private float timeToTypeText = 0.0f;
     private int currentCharactersTyped = 0;
 
-    private string[] storyTexts = new string[3] {
+    private string[] storyTexts = new string[5] {
 @"You must now help me
 cheat at dice to damn other
-poor souls.
-Grab and throw the dice above the tray 
-to generate your available moves.
-Then click and drag anywhere on the big dice
-to fling yourself in that direction. 
-I expect results, so rerolling your moves 
-too many times before reaching a goal will
-only spell your DOOM.",
-@"Wow
-You did it
-Im proud of you kid",
-@"Ok
-You should have died already what are you doing here just stop already let it go
-Why"
+poor souls.",
+@"Grab and throw the dice 
+above the tray to generate 
+your available moves.",
+@"Then click and drag anywhere 
+on the big dice to fling yourself
+in that direction. ",
+@"I expect results, so rerolling 
+your moves too many times before
+reaching a goal will only 
+spell your DOOM.",
+@"Good Luck, Jack...",
     };
     private int currentStoryString = 0;
 
@@ -84,8 +82,15 @@ Why"
     {
         GetContinueButton().clicked += () =>
         {
-           HidePopUp();
-           SetTextToType("");
+
+            if(currentStoryString < 5){
+                ShowNextStoryPopUp();
+            }else{
+                HidePopUp();
+                SetTextToType(""); 
+            }
+            
+            
         };
     }
 
