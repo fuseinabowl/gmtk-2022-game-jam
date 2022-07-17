@@ -151,15 +151,19 @@ public class DiceTurnController : MonoBehaviour
             {
                 Lose();
             }
-
-            outputConsumableMovements.StopSharingMovements();
-            StartCoroutine(CollectAllDiceAndPrepareForRoll());     
+            else
+            {
+                outputConsumableMovements.StopSharingMovements();
+                StartCoroutine(CollectAllDiceAndPrepareForRoll());     
+            }
         };
     }
 
     private void Lose()
     {
         // TODO
+        // disable reroll button
+        // start animation that kills jack
     }
 
     private List<Die> CreateDice()
