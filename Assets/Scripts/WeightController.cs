@@ -79,7 +79,6 @@ public class WeightController : MonoBehaviour
         
         if (curStopTimer <= 0){
             ReleaseStop();
-            curStopTimer = stopTimerMax;
         }
         if(Input.GetKeyDown("space")){
             Debug.Log("Space pressed");
@@ -109,6 +108,7 @@ public class WeightController : MonoBehaviour
 
         my_rigid.constraints = RigidbodyConstraints.FreezeAll;
 
+        curStopTimer = stopTimerMax;
         stopped = true;
     }
 
