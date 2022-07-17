@@ -147,7 +147,7 @@ public class DiceTurnController : MonoBehaviour
     {
         GetNextTurnButton().clicked += () =>
         {
-            if (livesCounter.decrementLife())
+            if (!livesCounter.decrementLife())
             {
                 Lose();
             }
@@ -159,11 +159,16 @@ public class DiceTurnController : MonoBehaviour
         };
     }
 
+    [SerializeField]
+    private Animator endOfGameAnimator = null;
+
     private void Lose()
     {
-        // TODO
         // disable reroll button
+        GetNextTurnButton().SetEnabled(false);
+
         // start animation that kills jack
+        endOfGameAnimator.SetTrigger("Start");
     }
 
     private List<Die> CreateDice()

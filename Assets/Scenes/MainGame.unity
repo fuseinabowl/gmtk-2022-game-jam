@@ -254,6 +254,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2075366049053063590, guid: f086a74c6977d6d43bc5fb7cd6b409c8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ae747f15dd6f2cb4d924d10c648c76a3, type: 2}
     - target: {fileID: 3720117158477844219, guid: f086a74c6977d6d43bc5fb7cd6b409c8, type: 3}
       propertyPath: m_Name
       value: half dice
@@ -420,6 +424,10 @@ PrefabInstance:
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 963194227}
+    - target: {fileID: -4951615999432625245, guid: 60a95dc43409feb489d6e3772c84d973, type: 3}
+      propertyPath: endOfGameAnimator
+      value: 
+      objectReference: {fileID: 1942079042}
     - target: {fileID: -4951615999432625245, guid: 60a95dc43409feb489d6e3772c84d973, type: 3}
       propertyPath: storyPopUpController
       value: 
@@ -1646,7 +1654,7 @@ PrefabInstance:
       objectReference: {fileID: 23296346}
     - target: {fileID: 1827051230, guid: 6464dd0808c34bc4785f1763237b8149, type: 3}
       propertyPath: isAttracting
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 367594281425310123, guid: 6464dd0808c34bc4785f1763237b8149, type: 3}
       propertyPath: m_Name

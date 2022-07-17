@@ -6,7 +6,6 @@ public class LivesCounter : MonoBehaviour
 {
     
     private int lifeCounterMax = 3;
-    private bool safeReroll = false;
     private int curLives;
     [SerializeField]
     private GameObject[] lifeObjects;
@@ -14,17 +13,9 @@ public class LivesCounter : MonoBehaviour
         curLives = lifeCounterMax;
     }
 
-    public void canSafelyReroll(){
-        safeReroll = true;
-    }
-
     public bool decrementLife(){
-        if (!safeReroll){
-            curLives -= 1;
-            TryHideLifeObject();
-        }else{
-            safeReroll = false;
-        }
+        curLives -= 1;
+        TryHideLifeObject();
 
         // if it returns false, that means GAME OVER
         return (curLives > 0);
