@@ -31,6 +31,10 @@ public class HalfDiceController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        for(int i = 0; i < 5; i++){
+            weightedZones[i].SetActive(false);
+            goalIndicators[i].SetBool("ShouldBeOn", false);
+        }
 
         weightedZones[3].SetActive(true);
         goalIndicators[3].SetBool("ShouldBeOn", true);

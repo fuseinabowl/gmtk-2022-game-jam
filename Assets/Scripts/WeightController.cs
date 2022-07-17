@@ -115,6 +115,7 @@ public class WeightController : MonoBehaviour
         if (curStopTimer <= 0){
             ReleaseStop();
         }
+        /*
         if(Input.GetKeyDown("space")){
            
             var myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Stop);
@@ -133,13 +134,10 @@ public class WeightController : MonoBehaviour
                 curChainTimer = chainTimerMax;
                 closestPointsPair = getClosestPoint(); 
                 chained = true;
-                my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
                 
                 //Debug.Log("stop action used");
-            }else{
-                //Debug.Log("No Action to use!");
             }
-        }
+        }*/
     }
 
     private void Stop()
@@ -216,42 +214,61 @@ public class WeightController : MonoBehaviour
             ReleaseStop();
             Vector3 magnitude = mouseArea - startPosition;
             int newAngle = (int) Vector3.SignedAngle((mouseArea - startPosition), Vector3.right, Vector3.up);
+            int myWilds = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Stop);
             
             if (newAngle <= -165 || newAngle >= -15){
                 if(newAngle >= 144 || newAngle <= -165){
                     int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Left);
                     if( myMovements > 0){
                         Flick(magnitude);
-                        Debug.Log("Leftmost Action used!");
                         my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Left);
+                    }else if(myWilds > 0){
+                        Flick(magnitude);
+                       
+                        Debug.Log("Wildcard used.");
+                        my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
                     }
                 }else if(newAngle >= 108){
                     int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.LeftUp);
                     if( myMovements > 0){
                         Flick(magnitude);
-                        Debug.Log("LeftUp Action used!");
+                       
                         my_con_movements.ConsumeMovement(ConsumableMovements.Movement.LeftUp);
+                    }else if(myWilds > 0){
+                        Flick(magnitude);
+                        
+                        Debug.Log("Wildcard used.");
+                        my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
                     }
                 }else if(newAngle >= 72){
                     int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Up);
                     if( myMovements > 0){
                         Flick(magnitude);
-                        Debug.Log("LeftUp Action used!");
                         my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Up);
+                    }else if(myWilds > 0){
+                        Flick(magnitude);
+                        Debug.Log("Wildcard used.");
+                        my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
                     }
                 }else if(newAngle >= 36){
                     int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.RightUp);
                     if( myMovements > 0){
                         Flick(magnitude);
-                        Debug.Log("Right Action used!");
                         my_con_movements.ConsumeMovement(ConsumableMovements.Movement.RightUp);
+                    }else if(myWilds > 0){
+                        Flick(magnitude);
+                        Debug.Log("Wildcard used.");
+                        my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
                     }
                 }else if(newAngle >= -15){
                     int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Right);
                     if( myMovements > 0){
                         Flick(magnitude);
-                        Debug.Log("Right Action used!");
                         my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Right);
+                    }else if(myWilds > 0){
+                        Flick(magnitude);
+                        Debug.Log("Wildcard used.");
+                        my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
                     }
                 }
                 
