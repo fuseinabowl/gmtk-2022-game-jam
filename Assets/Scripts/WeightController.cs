@@ -50,7 +50,7 @@ public class WeightController : MonoBehaviour
     private bool chained = false;
     [SerializeField][Range(0.0f, 1.0f)]
     private float chainWidth;
-    private float chainTimerMax = 1.66f;
+    //private float chainTimerMax = 1.66f;
     private float curChainTimer;
     [SerializeField]
     private LineRenderer chainLine;
@@ -66,6 +66,12 @@ public class WeightController : MonoBehaviour
     private (GameObject chainStartObject, Vector3 chainEndPos) closestPointsPair;
     [SerializeField]
     private LivesCounter my_lives_ctr;
+
+    
+    [SerializeField]
+    private Canvas jackProtractorCanvas = null;
+    [SerializeField]
+    private Transform jackProtactorTransform = null;
 
     // Start is called before the first frame update
     void Start()
@@ -168,6 +174,9 @@ public class WeightController : MonoBehaviour
             my_rigid.velocity = my_rigid.velocity * clickLinearSpeedMultiplier;
             startPosition = mouseArea;
             Time.timeScale = clickTimeSpeedMultiplier;
+
+            jackProtractorCanvas.enabled = true;
+            jackProtactorTransform.position = startPosition;
         }
     }
 
@@ -210,11 +219,12 @@ public class WeightController : MonoBehaviour
         Time.timeScale = 1.0f;
         if(my_con_movements.getIfReadyToShare()){
            
+            jackProtractorCanvas.enabled = false;
             arrowLine.enabled = false;
             ReleaseStop();
             Vector3 magnitude = mouseArea - startPosition;
             int newAngle = (int) Vector3.SignedAngle((mouseArea - startPosition), Vector3.right, Vector3.up);
-            int myWilds = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Stop);
+            int myWilds = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Stop);            
             
             if (newAngle <= -165 || newAngle >= -15){
                 if(newAngle >= 144 || newAngle <= -165){

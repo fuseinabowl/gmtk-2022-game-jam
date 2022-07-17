@@ -389,6 +389,14 @@ PrefabInstance:
       propertyPath: my_con_movements
       value: 
       objectReference: {fileID: 1389162636}
+    - target: {fileID: 4567189924533600516, guid: f086a74c6977d6d43bc5fb7cd6b409c8, type: 3}
+      propertyPath: jackProtractorCanvas
+      value: 
+      objectReference: {fileID: 1941269544}
+    - target: {fileID: 4567189924533600516, guid: f086a74c6977d6d43bc5fb7cd6b409c8, type: 3}
+      propertyPath: jackProtactorTransform
+      value: 
+      objectReference: {fileID: 701198555}
     - target: {fileID: 4567189924533600539, guid: f086a74c6977d6d43bc5fb7cd6b409c8, type: 3}
       propertyPath: Player
       value: 
@@ -910,6 +918,11 @@ Transform:
   m_Father: {fileID: 267988820}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &701198555 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2953060590403621414, guid: 17c35a9635bc6e44b8ba17c05ed1f62b, type: 3}
+  m_PrefabInstance: {fileID: 1959154113}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -2147,11 +2160,77 @@ Transform:
   m_Father: {fileID: 267988818}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!223 &1941269544 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 8884990939227295768, guid: 17c35a9635bc6e44b8ba17c05ed1f62b, type: 3}
+  m_PrefabInstance: {fileID: 1959154113}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &1942079042 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 1942079042, guid: 6464dd0808c34bc4785f1763237b8149, type: 3}
   m_PrefabInstance: {fileID: 3283659413475333527}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1959154113
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1014181677854362137, guid: 17c35a9635bc6e44b8ba17c05ed1f62b, type: 3}
+      propertyPath: consumeableMovements
+      value: 
+      objectReference: {fileID: 1389162636}
+    - target: {fileID: 2953060590403621414, guid: 17c35a9635bc6e44b8ba17c05ed1f62b, type: 3}
+      propertyPath: m_RootOrder
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953060590403621414, guid: 17c35a9635bc6e44b8ba17c05ed1f62b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953060590403621414, guid: 17c35a9635bc6e44b8ba17c05ed1f62b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.376
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953060590403621414, guid: 17c35a9635bc6e44b8ba17c05ed1f62b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.732
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953060590403621414, guid: 17c35a9635bc6e44b8ba17c05ed1f62b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953060590403621414, guid: 17c35a9635bc6e44b8ba17c05ed1f62b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953060590403621414, guid: 17c35a9635bc6e44b8ba17c05ed1f62b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953060590403621414, guid: 17c35a9635bc6e44b8ba17c05ed1f62b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953060590403621414, guid: 17c35a9635bc6e44b8ba17c05ed1f62b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953060590403621414, guid: 17c35a9635bc6e44b8ba17c05ed1f62b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2953060590403621414, guid: 17c35a9635bc6e44b8ba17c05ed1f62b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4756938706765359341, guid: 17c35a9635bc6e44b8ba17c05ed1f62b, type: 3}
+      propertyPath: m_Name
+      value: JackProtractor
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 17c35a9635bc6e44b8ba17c05ed1f62b, type: 3}
 --- !u!1001 &1977610868
 PrefabInstance:
   m_ObjectHideFlags: 0
