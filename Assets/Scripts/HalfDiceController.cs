@@ -76,7 +76,7 @@ public class HalfDiceController : MonoBehaviour
         spinning = true;
         totalScore += my_con_mov.getNumDiceRemaining() * scorePerDie;
         scoreText.text = "Score: " + totalScore.ToString();
-        finalScoreText.text = "You helped the demon scam "  + totalScore.ToString() + " coins for other gamblers.";
+        finalScoreText.text = "You helped the demon scam "  + totalScore.ToString() + " coins from other gamblers.";
         diceTurnController.OnLevelWon();
         //Debug.Log("Score So Far:" + totalScore);
 

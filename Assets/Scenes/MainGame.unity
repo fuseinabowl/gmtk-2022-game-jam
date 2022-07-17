@@ -2709,10 +2709,14 @@ PrefabInstance:
       propertyPath: targetCamera
       value: 
       objectReference: {fileID: 963194227}
+    - target: {fileID: 3666854983591585681, guid: 6464dd0808c34bc4785f1763237b8149, type: 3}
+      propertyPath: m_text
+      value: You helped the demon scam 0 coins from other gamblers.
+      objectReference: {fileID: 0}
     - target: {fileID: 6302749762522251089, guid: 6464dd0808c34bc4785f1763237b8149, type: 3}
       propertyPath: jack
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1768587875}
     - target: {fileID: 6560804099754635231, guid: 6464dd0808c34bc4785f1763237b8149, type: 3}
       propertyPath: jackTransform
       value: 
