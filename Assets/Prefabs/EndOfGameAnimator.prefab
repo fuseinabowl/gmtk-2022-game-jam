@@ -155,6 +155,7 @@ GameObject:
   m_Component:
   - component: {fileID: 827910962306531983}
   - component: {fileID: 1942079042}
+  - component: {fileID: 3236804685001667365}
   m_Layer: 0
   m_Name: EndOfGameAnimator
   m_TagString: Untagged
@@ -199,6 +200,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3236804685001667365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367594281425310123}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aed8b7eee6b96094080be6de6c5912dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetCamera: {fileID: 0}
+  fieldOfView: 25
 --- !u!1 &2761190438663792920
 GameObject:
   m_ObjectHideFlags: 0
