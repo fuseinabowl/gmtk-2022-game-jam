@@ -902,7 +902,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43c904b589ec87a46a66711c7f548b18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeCounterMax: 1
+  lifeCounterMax: 3
   lifeObjects:
   - {fileID: 1099246277}
   - {fileID: 368420530}
