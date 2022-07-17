@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class HalfDiceController : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class HalfDiceController : MonoBehaviour
     private ConsumableMovements my_con_mov;
     [SerializeField]
     private DiceTurnController diceTurnController = null;
+    [SerializeField]
+    private TMP_Text scoreText = null;
     [SerializeField]
     private int scorePerDie;
     private int totalScore = 0;
@@ -52,8 +55,9 @@ public class HalfDiceController : MonoBehaviour
         Player.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
         spinning = true;
         totalScore += my_con_mov.getNumDiceRemaining() * scorePerDie;
+        scoreText.text = "Score: " + totalScore.ToString();
         diceTurnController.OnLevelWon();
-        Debug.Log("Score So Far:" + totalScore);
+        //Debug.Log("Score So Far:" + totalScore);
 
         int newZone = Random.Range(0, 4);
         if (newZone == id){
