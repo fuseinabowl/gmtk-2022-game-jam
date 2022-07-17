@@ -154,7 +154,6 @@ public class DiceTurnController : MonoBehaviour
 
             outputConsumableMovements.StopSharingMovements();
             StartCoroutine(CollectAllDiceAndPrepareForRoll());     
-            onNewTurn?.Invoke();
         };
     }
 
@@ -653,5 +652,7 @@ public class DiceTurnController : MonoBehaviour
     {
         outputConsumableMovements.StopSharingMovements();
         StartCoroutine(CollectAllDiceAndPrepareForRoll());
+
+        onNewTurn?.Invoke();
     }
 }
