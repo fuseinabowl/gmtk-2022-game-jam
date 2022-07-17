@@ -19,6 +19,8 @@ public class HalfDiceController : MonoBehaviour
     [SerializeField]
     private ConsumableMovements my_con_mov;
     [SerializeField]
+    private WeightController my_weight_con;
+    [SerializeField]
     private DiceTurnController diceTurnController = null;
     [SerializeField]
     private TMP_Text scoreText = null;
@@ -113,8 +115,5 @@ public class HalfDiceController : MonoBehaviour
     public int getTotalScore(){
         return totalScore;
     }
-
-
-
 
 }
