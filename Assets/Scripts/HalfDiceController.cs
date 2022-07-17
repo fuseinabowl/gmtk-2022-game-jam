@@ -25,15 +25,14 @@ public class HalfDiceController : MonoBehaviour
     void Start()
     {
 
-        weightedZones[3].SetActive(true);
-        goalIndicators[3].SetBool("ShouldBeOn", true);
+        weightedZones[4].SetActive(true);
+        goalIndicators[4].SetBool("ShouldBeOn", true);
         my_trans = GetComponent<Transform>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-
         if (spinning){
             Quaternion targetRotation = Quaternion.Euler(0, target, 270);
             my_trans.rotation = Quaternion.RotateTowards(my_trans.rotation, targetRotation, Time.deltaTime * smoothing);

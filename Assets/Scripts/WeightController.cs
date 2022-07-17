@@ -47,6 +47,23 @@ public class WeightController : MonoBehaviour
     private GameObject Player;
     [SerializeField]
     private JackCheckGoalZone goal_zone_check;
+    private bool chained = false;
+    [SerializeField][Range(0.0f, 1.0f)]
+    private float chainWidth;
+    private float chainTimerMax = 1.0f;
+    private float curChainTimer;
+    [SerializeField]
+    private LineRenderer chainLine;
+    [SerializeField]
+    private GameObject topChainPt;
+    [SerializeField]
+    private GameObject botChainPt;
+    [SerializeField]
+    private GameObject leftChainPt;
+    [SerializeField]
+    private GameObject rightChainPt;
+    private float elapsedTime;
+    private (GameObject chainStartObject, Vector3 chainEndPos) closestPointsPair;
 
 
     // Start is called before the first frame update
@@ -64,15 +81,31 @@ public class WeightController : MonoBehaviour
 
 
     void FixedUpdate() {
+        if(chained){
+           
+           chainLine.enabled = true;
+            DrawChain(closestPointsPair);
+        }
         if (!stopped){
             my_rigid.AddForce(new Vector3(0.0f, 0.0f, -gravity), ForceMode.Acceleration);
         }
         
     }
+    
 
     // Update is called once per frame
     void Update()
     {
+        elapsedTime += Time.deltaTime;
+
+        if(curChainTimer > 0){
+            curChainTimer -= Time.deltaTime;
+        }
+        if (curChainTimer <=0){
+            chainLine.enabled = false;
+            chained = false;
+        }
+
         if(stopped){
             curStopTimer -= Time.deltaTime;
         }
@@ -82,30 +115,36 @@ public class WeightController : MonoBehaviour
             curStopTimer = stopTimerMax;
         }
         if(Input.GetKeyDown("space")){
-            Debug.Log("Space pressed");
+           
             var myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Stop);
             bool inGoalZone = goal_zone_check.getIfInGoalZone();
-
+            
 
             if(inGoalZone == true){
                 Stop();
-                return;
+                closestPointsPair = getClosestPoint(); 
+                curChainTimer = chainTimerMax;
+                chained = true;
+                
+
             }else if (myMovements > 0 ){
                 Stop();
+                curChainTimer = chainTimerMax;
+                closestPointsPair = getClosestPoint(); 
+                chained = true;
                 my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
                 
-                Debug.Log("stop action used");
+                //Debug.Log("stop action used");
             }else{
-                Debug.Log("No Action to use!");
+                //Debug.Log("No Action to use!");
             }
-            
         }
     }
 
     private void Stop()
     {
-        my_rigid.velocity = new Vector3(0.0f, 0.0f, 0.0f);
-        my_rigid.angularVelocity = new Vector3(0.0f, 0.0f, 0.0f);
+        my_rigid.velocity = Vector3.Lerp(my_rigid.velocity, new Vector3(0.0f, 0.0f, 0.0f), (elapsedTime));
+        my_rigid.angularVelocity = Vector3.Lerp(my_rigid.angularVelocity, new Vector3(0.0f, 0.0f, 0.0f), (elapsedTime ));
 
         my_rigid.constraints = RigidbodyConstraints.FreezeAll;
 
@@ -141,6 +180,11 @@ public class WeightController : MonoBehaviour
         
     }
 
+    private void DrawChain((GameObject ChainStartPt, Vector3 ChainEndPos) chainPosTuple){
+        chainLine.SetPosition(0, chainPosTuple.ChainStartPt.transform.position);
+        chainLine.SetPosition(1, chainPosTuple.ChainEndPos);
+    }
+
     private void DrawArrow(){
         mouseArea = Camera.main.ScreenToWorldPoint(
             new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane
@@ -158,8 +202,8 @@ public class WeightController : MonoBehaviour
             new Keyframe (1 - percentSize, 1f),
             new Keyframe (1 - percentSize, 1f),
             new Keyframe (1, 0f)
-        );      
-        prevAngle = (int) Vector3.SignedAngle((mouseArea - startPosition), Vector3.right, Vector3.up);
+        );    
+        
     }
 
     private void OnMouseUp() {
@@ -222,4 +266,54 @@ public class WeightController : MonoBehaviour
         var flickForce = flickDirection * speed;
         my_rigid.AddForce(flickForce, ForceMode.Impulse);
     }
+    
+
+    private (GameObject, Vector3) getClosestPoint(){
+        var smallestDist = Mathf.Infinity;
+        GameObject closestChainPt = null;
+        Vector3 closestRayHit = new Vector3(0f,0f,0f); // dummy value watch out if there are issues
+        RaycastHit topHit;
+        RaycastHit botHit;
+        RaycastHit rightHit;
+        RaycastHit leftHit;
+        if (Physics.Raycast(topChainPt.transform.position, topChainPt.transform.TransformDirection(Vector3.up), out topHit, Mathf.Infinity)){
+            Debug.Log("topHit dist: "+ topHit.distance);
+            if (topHit.distance < smallestDist){
+                smallestDist = topHit.distance;
+                closestRayHit = topHit.point;
+                closestChainPt = topChainPt;
+            }
+        }
+        
+        if (Physics.Raycast(botChainPt.transform.position, botChainPt.transform.TransformDirection(Vector3.down), out botHit, Mathf.Infinity)){
+            Debug.Log("botHit dist: "+ botHit.distance);
+            if (botHit.distance < smallestDist){
+                smallestDist = botHit.distance;
+                closestRayHit = botHit.point;
+                closestChainPt = botChainPt;
+            }
+        }
+        if (Physics.Raycast(leftChainPt.transform.position, leftChainPt.transform.TransformDirection(Vector3.back), out leftHit, Mathf.Infinity)){
+            Debug.Log("leftHit dist: "+ leftHit.distance);
+            if (leftHit.distance < smallestDist){
+                smallestDist = leftHit.distance;
+                closestRayHit = leftHit.point;
+                closestChainPt = leftChainPt;
+            }
+        }
+        if (Physics.Raycast(rightChainPt.transform.position, rightChainPt.transform.TransformDirection(Vector3.forward), out rightHit, Mathf.Infinity)){
+            Debug.Log("rightHit dist: "+ rightHit.distance);
+            if (rightHit.distance < smallestDist){
+                smallestDist = rightHit.distance;
+                closestRayHit = rightHit.point;
+                closestChainPt = rightChainPt;
+            }
+        }
+            
+
+        return (closestChainPt, closestRayHit);
+    }
+    
+
+
 }
