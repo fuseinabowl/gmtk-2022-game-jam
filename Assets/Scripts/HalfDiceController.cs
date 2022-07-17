@@ -15,6 +15,11 @@ public class HalfDiceController : MonoBehaviour
     private GameObject[] weightedZones;
     [SerializeField]
     private Animator[] goalIndicators;
+    [SerializeField]
+    private ConsumableMovements my_con_mov;
+    [SerializeField]
+    private int scorePerDie;
+    private int totalScore = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -44,10 +49,12 @@ public class HalfDiceController : MonoBehaviour
     //y = 270 -> weightedZone_1/2
 
     public void spin(int id){
-        Debug.Log("Spin me");
         //Player.transform.SetParent(my_trans);
         Player.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
         spinning = true;
+        totalScore += my_con_mov.getNumDiceRemaining() * scorePerDie;
+        Debug.Log("Score So Far:"+totalScore);
+
         int newZone = Random.Range(0, 4);
         if (newZone == id){
             newZone += 1;
@@ -95,6 +102,10 @@ public class HalfDiceController : MonoBehaviour
 
         }
 
+    }
+
+    public int getTotalScore(){
+        return totalScore;
     }
 
 

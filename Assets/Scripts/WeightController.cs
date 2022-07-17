@@ -82,14 +82,17 @@ public class WeightController : MonoBehaviour
             curStopTimer = stopTimerMax;
         }
         if(Input.GetKeyDown("space")){
+            Debug.Log("Space pressed");
             var myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Stop);
-            bool inGoalZone = goal_zone_check.getIfInGoalZone() ;
-            
-            if (myMovements > 0 || inGoalZone == true){
+            bool inGoalZone = goal_zone_check.getIfInGoalZone();
+
+
+            if(inGoalZone == true){
                 Stop();
-                if(!inGoalZone){
-                    my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
-                }
+                return;
+            }else if (myMovements > 0 ){
+                Stop();
+                my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
                 
                 Debug.Log("stop action used");
             }else{
@@ -156,7 +159,6 @@ public class WeightController : MonoBehaviour
             new Keyframe (1 - percentSize, 1f),
             new Keyframe (1, 0f)
         );      
-        Debug.Log((int) Vector3.SignedAngle((mouseArea - startPosition), Vector3.right, Vector3.up));
         prevAngle = (int) Vector3.SignedAngle((mouseArea - startPosition), Vector3.right, Vector3.up);
     }
 

@@ -90,4 +90,12 @@ public class ConsumableMovements : MonoBehaviour
     public bool getIfReadyToShare(){
         return isReadyToShare;
     }
+
+    public int getNumDiceRemaining(){
+        int totalDice = 0;
+        for(int i = 0; i < 6; i++ ){
+            totalDice += availableMovements[i];
+        }
+        return totalDice;
+    }
 }
