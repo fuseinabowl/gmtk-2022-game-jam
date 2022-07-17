@@ -72,7 +72,9 @@ public class WeightController : MonoBehaviour
     private Canvas jackProtractorCanvas = null;
     [SerializeField]
     private Transform jackProtactorTransform = null;
-
+    [SerializeField]
+    private JackProtractorController jackProtactorController = null;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -184,6 +186,33 @@ public class WeightController : MonoBehaviour
         if(my_con_movements.getIfReadyToShare()){
             arrowLine.enabled = true;
             DrawArrow();
+
+            int newAngle = (int) Vector3.SignedAngle((mouseArea - startPosition), Vector3.right, Vector3.up);
+            int myWilds = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Stop);
+            bool hasWilds = myWilds > 0;
+            
+            if (newAngle <= -165 || newAngle >= -15){
+                if(newAngle >= 144 || newAngle <= -165){
+                    int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Left);
+                    jackProtactorController.SetMovesToBeUsed(true, ConsumableMovements.Movement.Left, hasWilds && myMovements == 0);
+                }else if(newAngle >= 108){
+                    int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.LeftUp);
+                    jackProtactorController.SetMovesToBeUsed(true, ConsumableMovements.Movement.LeftUp, hasWilds && myMovements == 0);
+                }else if(newAngle >= 72){
+                    int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Up);
+                    jackProtactorController.SetMovesToBeUsed(true, ConsumableMovements.Movement.Up, hasWilds && myMovements == 0);
+                }else if(newAngle >= 36){
+                    int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.RightUp);
+                    jackProtactorController.SetMovesToBeUsed(true, ConsumableMovements.Movement.RightUp, hasWilds && myMovements == 0);
+                }else if(newAngle >= -15){
+                    int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Right);
+                    jackProtactorController.SetMovesToBeUsed(true, ConsumableMovements.Movement.Right, hasWilds && myMovements == 0);
+                }else{
+                    jackProtactorController.SetMovesToBeUsed(false, ConsumableMovements.Movement.Stop, false);
+                }                
+            }else{
+                jackProtactorController.SetMovesToBeUsed(false, ConsumableMovements.Movement.Stop, false);
+            }
         }
         
         
@@ -221,6 +250,7 @@ public class WeightController : MonoBehaviour
            
             jackProtractorCanvas.enabled = false;
             arrowLine.enabled = false;
+            jackProtactorController.SetMovesToBeUsed(false, ConsumableMovements.Movement.Stop, false);
             ReleaseStop();
             Vector3 magnitude = mouseArea - startPosition;
             int newAngle = (int) Vector3.SignedAngle((mouseArea - startPosition), Vector3.right, Vector3.up);
