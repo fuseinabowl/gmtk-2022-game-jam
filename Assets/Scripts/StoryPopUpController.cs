@@ -35,12 +35,6 @@ public class StoryPopUpController : MonoBehaviour
 @"Hi
 Your job is to weight my dice down
 Get to it pleb
-a
-a
-a
-a
-a
-a
 a",
 @"Wow
 You did it
