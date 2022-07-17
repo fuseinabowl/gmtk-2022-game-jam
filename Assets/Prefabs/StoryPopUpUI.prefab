@@ -98,6 +98,29 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  storyTexts2:
+  - 'I''ve turned you into a weight.
+
+    When you move to a
+
+    face you''ll pull
+    it down for me.'
+  - 'Listen to my conversation with
+
+    other gamblers and help me
+
+    win dice
+    rolls against them.'
+  - 'I will not tolerate delays,
+
+    rerolling your movements too
+
+    many times
+    will spell your DOOM.'
+  - 'If you help me win enough
+
+    coin I may yet let you live.'
+  - Good luck, Jack...
 --- !u!82 &7786603850315181907
 AudioSource:
   m_ObjectHideFlags: 0

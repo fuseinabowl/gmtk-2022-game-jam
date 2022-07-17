@@ -31,7 +31,7 @@ public class StoryPopUpController : MonoBehaviour
     private float timeToTypeText = 0.0f;
     private int currentCharactersTyped = 0;
 
-    private string[] storyTexts = new string[5] {
+    private string[] storyTexts = new string[] {
 @"You must now help me
 cheat at dice to damn other
 poor souls.",
@@ -41,13 +41,14 @@ your available moves.",
 @"Then click and drag anywhere 
 on the big dice to fling yourself
 in that direction. ",
-@"I expect results, so rerolling 
-your moves too many times before
-reaching a goal will only 
-spell your DOOM.",
-@"Good Luck, Jack...",
     };
+	
+	[SerializeField]
+	[TextArea]
+    private string[] storyTexts2 = new string[] {};
+	
     private int currentStoryString = 0;
+    private int currentStoryChapter = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -70,27 +71,60 @@ spell your DOOM.",
 
     private void ShowNextStoryPopUp()
     {
-        if (currentStoryString < storyTexts.Length)
+        if (IsInStoryMode())
         {
-            ShowPopUp();
-            SetTextToType(storyTexts[currentStoryString]);
-            currentStoryString += 1;
+            var currentChapterTexts = GetCurrentChapterTexts();
+
+            if (currentStoryString < currentChapterTexts.Length)
+            {
+                ShowPopUp();
+                SetTextToType(currentChapterTexts[currentStoryString]);
+                currentStoryString += 1;
+            }
         }
+    }
+
+    private string[] GetCurrentChapterTexts()
+    {
+        switch (currentStoryChapter)
+        {
+            case 0:
+            {
+                return storyTexts;
+            }
+            case 1:
+            {
+                return storyTexts2;
+            }
+            default:
+            {
+                return null;
+            }
+        }
+    }
+
+    private bool IsInStoryMode()
+    {
+        return currentStoryChapter < 2;
     }
 
     private void MakeContinueButtonHideUI()
     {
         GetContinueButton().clicked += () =>
         {
-
-            if(currentStoryString < 5){
+            if (IsInStoryMode() && currentStoryString < GetCurrentChapterTexts().Length)
+            {
                 ShowNextStoryPopUp();
-            }else{
+            }
+            else
+            {
+                Debug.Log($"Upping chapter {currentStoryChapter}");
+                currentStoryChapter++;
+                currentStoryString = 0;
+
                 HidePopUp();
                 SetTextToType(""); 
             }
-            
-            
         };
     }
 
