@@ -50,7 +50,7 @@ public class WeightController : MonoBehaviour
     private bool chained = false;
     [SerializeField][Range(0.0f, 1.0f)]
     private float chainWidth;
-    private float chainTimerMax = 1.66f;
+    //private float chainTimerMax = 1.66f;
     private float curChainTimer;
     [SerializeField]
     private LineRenderer chainLine;
@@ -66,7 +66,19 @@ public class WeightController : MonoBehaviour
     private (GameObject chainStartObject, Vector3 chainEndPos) closestPointsPair;
     [SerializeField]
     private LivesCounter my_lives_ctr;
+    [SerializeField]
+    private float minMagnitude;
 
+    
+    [SerializeField]
+    private Canvas jackProtractorCanvas = null;
+    [SerializeField]
+    private Transform jackProtactorTransform = null;
+    [SerializeField]
+    private JackProtractorController jackProtactorController = null;
+    [SerializeField]
+    private float Zpopup;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -168,6 +180,9 @@ public class WeightController : MonoBehaviour
             my_rigid.velocity = my_rigid.velocity * clickLinearSpeedMultiplier;
             startPosition = mouseArea;
             Time.timeScale = clickTimeSpeedMultiplier;
+
+            jackProtractorCanvas.enabled = true;
+            jackProtactorTransform.position = startPosition;
         }
     }
 
@@ -175,6 +190,33 @@ public class WeightController : MonoBehaviour
         if(my_con_movements.getIfReadyToShare()){
             arrowLine.enabled = true;
             DrawArrow();
+
+            int newAngle = (int) Vector3.SignedAngle((mouseArea - startPosition), Vector3.right, Vector3.up);
+            int myWilds = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Stop);
+            bool hasWilds = myWilds > 0;
+            
+            if (newAngle <= -165 || newAngle >= -15){
+                if(newAngle >= 144 || newAngle <= -165){
+                    int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Left);
+                    jackProtactorController.SetMovesToBeUsed(true, ConsumableMovements.Movement.Left, hasWilds && myMovements == 0);
+                }else if(newAngle >= 108){
+                    int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.LeftUp);
+                    jackProtactorController.SetMovesToBeUsed(true, ConsumableMovements.Movement.LeftUp, hasWilds && myMovements == 0);
+                }else if(newAngle >= 72){
+                    int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Up);
+                    jackProtactorController.SetMovesToBeUsed(true, ConsumableMovements.Movement.Up, hasWilds && myMovements == 0);
+                }else if(newAngle >= 36){
+                    int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.RightUp);
+                    jackProtactorController.SetMovesToBeUsed(true, ConsumableMovements.Movement.RightUp, hasWilds && myMovements == 0);
+                }else if(newAngle >= -15){
+                    int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Right);
+                    jackProtactorController.SetMovesToBeUsed(true, ConsumableMovements.Movement.Right, hasWilds && myMovements == 0);
+                }else{
+                    jackProtactorController.SetMovesToBeUsed(false, ConsumableMovements.Movement.Stop, false);
+                }                
+            }else{
+                jackProtactorController.SetMovesToBeUsed(false, ConsumableMovements.Movement.Stop, false);
+            }
         }
         
         
@@ -210,69 +252,73 @@ public class WeightController : MonoBehaviour
         Time.timeScale = 1.0f;
         if(my_con_movements.getIfReadyToShare()){
            
+            jackProtractorCanvas.enabled = false;
             arrowLine.enabled = false;
+            jackProtactorController.SetMovesToBeUsed(false, ConsumableMovements.Movement.Stop, false);
             ReleaseStop();
             Vector3 magnitude = mouseArea - startPosition;
             int newAngle = (int) Vector3.SignedAngle((mouseArea - startPosition), Vector3.right, Vector3.up);
-            int myWilds = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Stop);
-            
-            if (newAngle <= -165 || newAngle >= -15){
-                if(newAngle >= 144 || newAngle <= -165){
-                    int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Left);
-                    if( myMovements > 0){
-                        Flick(magnitude);
-                        my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Left);
-                    }else if(myWilds > 0){
-                        Flick(magnitude);
-                       
-                        Debug.Log("Wildcard used.");
-                        my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
-                    }
-                }else if(newAngle >= 108){
-                    int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.LeftUp);
-                    if( myMovements > 0){
-                        Flick(magnitude);
-                       
-                        my_con_movements.ConsumeMovement(ConsumableMovements.Movement.LeftUp);
-                    }else if(myWilds > 0){
-                        Flick(magnitude);
+            int myWilds = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Stop);            
+            if(magnitude.magnitude >= minMagnitude){
+
+                if (newAngle <= -165 || newAngle >= -15){
+                    if(newAngle >= 144 || newAngle <= -165){
+                        int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Left);
+                        if( myMovements > 0){
+                            Flick(new Vector3(magnitude.x, magnitude.y, Mathf.Max(magnitude.z, Zpopup)) );
+                            my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Left);
+                        }else if(myWilds > 0){
+                            Flick(new Vector3(magnitude.x, magnitude.y, Mathf.Max(magnitude.z, Zpopup)));
                         
-                        Debug.Log("Wildcard used.");
-                        my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
+                            
+                            my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
+                        }
+                    }else if(newAngle >= 108){
+                        int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.LeftUp);
+                        if( myMovements > 0){
+                            Flick(magnitude);
+                        
+                            my_con_movements.ConsumeMovement(ConsumableMovements.Movement.LeftUp);
+                        }else if(myWilds > 0){
+                            Flick(magnitude);
+                            
+                            
+                            my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
+                        }
+                    }else if(newAngle >= 72){
+                        int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Up);
+                        if( myMovements > 0){
+                            Flick(magnitude);
+                            my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Up);
+                        }else if(myWilds > 0){
+                            Flick(magnitude);
+                           
+                            my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
+                        }
+                    }else if(newAngle >= 36){
+                        int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.RightUp);
+                        if( myMovements > 0){
+                            Flick(magnitude);
+                            my_con_movements.ConsumeMovement(ConsumableMovements.Movement.RightUp);
+                        }else if(myWilds > 0){
+                            Flick(magnitude);
+                            
+                            my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
+                        }
+                    }else if(newAngle >= -15){
+                        int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Right);
+                        if( myMovements > 0){
+                            Flick(new Vector3(magnitude.x, magnitude.y, Mathf.Max(magnitude.z, Zpopup)));
+                            my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Right);
+                        }else if(myWilds > 0){
+                            Flick(new Vector3(magnitude.x, magnitude.y, Mathf.Max(magnitude.z, Zpopup)));
+                            
+                            my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
+                        }
                     }
-                }else if(newAngle >= 72){
-                    int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Up);
-                    if( myMovements > 0){
-                        Flick(magnitude);
-                        my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Up);
-                    }else if(myWilds > 0){
-                        Flick(magnitude);
-                        Debug.Log("Wildcard used.");
-                        my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
-                    }
-                }else if(newAngle >= 36){
-                    int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.RightUp);
-                    if( myMovements > 0){
-                        Flick(magnitude);
-                        my_con_movements.ConsumeMovement(ConsumableMovements.Movement.RightUp);
-                    }else if(myWilds > 0){
-                        Flick(magnitude);
-                        Debug.Log("Wildcard used.");
-                        my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
-                    }
-                }else if(newAngle >= -15){
-                    int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Right);
-                    if( myMovements > 0){
-                        Flick(magnitude);
-                        my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Right);
-                    }else if(myWilds > 0){
-                        Flick(magnitude);
-                        Debug.Log("Wildcard used.");
-                        my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
-                    }
-                }
-                
-            } 
+                    
+                } 
+            }
         }
         
         
