@@ -13,29 +13,11 @@ public class WeightedZoneController : MonoBehaviour
     private float curRotateTimer;
     private bool isInZone;
 
-    private void FixedUpdate() {
-        if(isInZone){
-            curRotateTimer -= Time.deltaTime;
-            if (curRotateTimer <= 0){
-                my_half_dice_con.spin(id);
-            }
-        }
-        
-    }
-
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player"){
-            if(!isInZone){
-                curRotateTimer = rotateTimerMax;
-            }
-            isInZone = true;
+            my_half_dice_con.spin(id);
         }
     }
 
-    private void OnTriggerExit(Collider other) {
-        if (other.tag == "Player"){
-            isInZone = false;
-            curRotateTimer = rotateTimerMax;
-        }
-    }
+    
 }
