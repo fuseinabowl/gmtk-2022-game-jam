@@ -5,7 +5,9 @@ using UnityEngine;
 public class LivesCounter : MonoBehaviour
 {
     
+    [SerializeField]
     private int lifeCounterMax = 3;
+
     private int curLives;
     [SerializeField]
     private GameObject[] lifeObjects;
@@ -18,7 +20,7 @@ public class LivesCounter : MonoBehaviour
         TryHideLifeObject();
 
         // if it returns false, that means GAME OVER
-        return (curLives > 0);
+        return (curLives >= 0);
     }
 
     private void TryHideLifeObject()
