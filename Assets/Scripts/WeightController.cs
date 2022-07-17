@@ -312,10 +312,7 @@ public class WeightController : MonoBehaviour
             }
         }
             
-
         return (closestChainPt, closestRayHit);
     }
-    
-
 
 }
