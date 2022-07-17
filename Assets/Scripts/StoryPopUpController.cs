@@ -145,7 +145,7 @@ Why"
 
     public bool IsShown()
     {
-        return popUpOpacity > 0.0f;
+        return shouldShowPopUp;
     }
 
     public bool IsFullyShown()
