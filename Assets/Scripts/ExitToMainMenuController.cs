@@ -16,6 +16,12 @@ public class ExitToMainMenuController : MonoBehaviour
         ButtonHookup();
     }
 
+    void OnDisable()
+    {
+        //Reset incase we left timescale bad
+        Time.timeScale = 1.0f;
+    }
+
     private void ButtonHookup()
     {
         GetExitButton().clicked += () =>

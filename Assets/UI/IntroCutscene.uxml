@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="BackGround" style="width: 100%; height: 100%; background-color: rgb(0, 0, 0); opacity: 1;">
+        <ui:VisualElement name="DevilImage" style="width: 100%; height: 70%; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-around; opacity: 1; background-image: url(&apos;project://database/Assets/Art/devil%20silhouette.png?fileID=2800000&amp;guid=7b222873e52425545adc264084e2e43d&amp;type=3#devil silhouette&apos;); -unity-background-image-tint-color: rgb(255, 255, 255);" />
+        <ui:Label text="Label" display-tooltip-when-elided="true" name="CutsceneText" style="flex-wrap: wrap; justify-content: center; align-items: stretch; -unity-text-align: middle-center; width: 100%; height: 50%; -unity-font: url(&apos;project://database/Assets/MorrisRoman-Black.ttf?fileID=12800000&amp;guid=ff1c4167532a3d74f9a404dbed304214&amp;type=3#MorrisRoman-Black&apos;); font-size: 54px; color: rgb(135, 13, 13); -unity-font-definition: none; top: 50%; position: absolute;" />
+    </ui:VisualElement>
+</ui:UXML>

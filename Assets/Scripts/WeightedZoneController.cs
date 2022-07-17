@@ -13,7 +13,7 @@ public class WeightedZoneController : MonoBehaviour
     private float curRotateTimer;
     private bool isInZone;
 
-    private void Update() {
+    private void FixedUpdate() {
         if(isInZone){
             curRotateTimer -= Time.deltaTime;
             if (curRotateTimer <= 0){
