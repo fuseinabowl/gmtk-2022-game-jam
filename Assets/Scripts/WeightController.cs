@@ -76,6 +76,8 @@ public class WeightController : MonoBehaviour
     private Transform jackProtactorTransform = null;
     [SerializeField]
     private JackProtractorController jackProtactorController = null;
+    [SerializeField]
+    private float Zpopup;
     
     // Start is called before the first frame update
     void Start()
@@ -258,16 +260,17 @@ public class WeightController : MonoBehaviour
             int newAngle = (int) Vector3.SignedAngle((mouseArea - startPosition), Vector3.right, Vector3.up);
             int myWilds = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Stop);            
             if(magnitude.magnitude >= minMagnitude){
+
                 if (newAngle <= -165 || newAngle >= -15){
                     if(newAngle >= 144 || newAngle <= -165){
                         int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Left);
                         if( myMovements > 0){
-                            Flick(magnitude);
+                            Flick(new Vector3(magnitude.x, magnitude.y, Mathf.Max(magnitude.z, Zpopup)) );
                             my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Left);
                         }else if(myWilds > 0){
-                            Flick(magnitude);
+                            Flick(new Vector3(magnitude.x, magnitude.y, Mathf.Max(magnitude.z, Zpopup)));
                         
-                            Debug.Log("Wildcard used.");
+                            
                             my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
                         }
                     }else if(newAngle >= 108){
@@ -279,7 +282,7 @@ public class WeightController : MonoBehaviour
                         }else if(myWilds > 0){
                             Flick(magnitude);
                             
-                            Debug.Log("Wildcard used.");
+                            
                             my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
                         }
                     }else if(newAngle >= 72){
@@ -289,7 +292,7 @@ public class WeightController : MonoBehaviour
                             my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Up);
                         }else if(myWilds > 0){
                             Flick(magnitude);
-                            Debug.Log("Wildcard used.");
+                           
                             my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
                         }
                     }else if(newAngle >= 36){
@@ -299,17 +302,17 @@ public class WeightController : MonoBehaviour
                             my_con_movements.ConsumeMovement(ConsumableMovements.Movement.RightUp);
                         }else if(myWilds > 0){
                             Flick(magnitude);
-                            Debug.Log("Wildcard used.");
+                            
                             my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
                         }
                     }else if(newAngle >= -15){
                         int myMovements = my_con_movements.GetAvailableMovementActions(ConsumableMovements.Movement.Right);
                         if( myMovements > 0){
-                            Flick(magnitude);
+                            Flick(new Vector3(magnitude.x, magnitude.y, Mathf.Max(magnitude.z, Zpopup)));
                             my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Right);
                         }else if(myWilds > 0){
-                            Flick(magnitude);
-                            Debug.Log("Wildcard used.");
+                            Flick(new Vector3(magnitude.x, magnitude.y, Mathf.Max(magnitude.z, Zpopup)));
+                            
                             my_con_movements.ConsumeMovement(ConsumableMovements.Movement.Stop);
                         }
                     }

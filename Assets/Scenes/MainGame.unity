@@ -354,6 +354,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1768587870}
     - target: {fileID: 4567189924533600516, guid: f086a74c6977d6d43bc5fb7cd6b409c8, type: 3}
+      propertyPath: Zpopup
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4567189924533600516, guid: f086a74c6977d6d43bc5fb7cd6b409c8, type: 3}
       propertyPath: chainLine
       value: 
       objectReference: {fileID: 2023118790}
@@ -369,6 +373,10 @@ PrefabInstance:
       propertyPath: leftChainPt
       value: 
       objectReference: {fileID: 605878295}
+    - target: {fileID: 4567189924533600516, guid: f086a74c6977d6d43bc5fb7cd6b409c8, type: 3}
+      propertyPath: minMagnitude
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 4567189924533600516, guid: f086a74c6977d6d43bc5fb7cd6b409c8, type: 3}
       propertyPath: my_lives_ctr
       value: 
